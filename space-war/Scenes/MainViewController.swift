@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     skView.ignoresSiblingOrder = true
     skView.showsFPS = false
     skView.showsNodeCount = false
+    skView.isMultipleTouchEnabled = true
   }
 
   // MARK: - Setup functions
