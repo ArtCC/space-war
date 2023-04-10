@@ -7,26 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		802C22C229E44A350038841E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C129E44A350038841E /* Constants.swift */; };
+		802C22C529E44A5A0038841E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 802C22C729E44A5A0038841E /* Localizable.strings */; };
+		802C22CA29E44B1E0038841E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C929E44B1E0038841E /* String.swift */; };
+		802C22CC29E450EF0038841E /* SetupScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22CB29E450EF0038841E /* SetupScenes.swift */; };
 		809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA129E42026001AB601 /* AppDelegate.swift */; };
-		809E8EA429E42026001AB601 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EA329E42026001AB601 /* GameScene.sks */; };
-		809E8EA629E42026001AB601 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EA529E42026001AB601 /* Actions.sks */; };
-		809E8EA829E42026001AB601 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA729E42026001AB601 /* GameScene.swift */; };
-		809E8EAA29E42026001AB601 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA929E42026001AB601 /* GameViewController.swift */; };
+		809E8EAA29E42026001AB601 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA929E42026001AB601 /* MainViewController.swift */; };
 		809E8EAD29E42026001AB601 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EAB29E42026001AB601 /* Main.storyboard */; };
 		809E8EAF29E42027001AB601 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EAE29E42027001AB601 /* Assets.xcassets */; };
 		809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EB029E42027001AB601 /* LaunchScreen.storyboard */; };
+		809E8EB929E4211A001AB601 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EB829E4211A001AB601 /* MainMenuScene.swift */; };
+		809E8EBE29E422CA001AB601 /* short-laser-gun-shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EBC29E422C9001AB601 /* short-laser-gun-shot.wav */; };
+		809E8EBF29E422CA001AB601 /* space-game.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EBD29E422CA001AB601 /* space-game.wav */; };
+		809E8EC229E422E9001AB601 /* start-level.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC029E422E8001AB601 /* start-level.wav */; };
+		809E8EC329E422E9001AB601 /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC129E422E9001AB601 /* menu.wav */; };
+		809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC629E42614001AB601 /* Roboto-Regular.ttf */; };
+		809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC729E42614001AB601 /* Roboto-Thin.ttf */; };
+		809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECC29E42DAB001AB601 /* GameScene.swift */; };
+		809E8ECF29E4312D001AB601 /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECE29E4312D001AB601 /* ScoreScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		802C22C129E44A350038841E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		802C22C629E44A5A0038841E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		802C22C829E44A6E0038841E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		802C22C929E44B1E0038841E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		802C22CB29E450EF0038841E /* SetupScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScenes.swift; sourceTree = "<group>"; };
 		809E8E9E29E42026001AB601 /* space-war.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "space-war.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		809E8EA129E42026001AB601 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		809E8EA329E42026001AB601 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		809E8EA529E42026001AB601 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		809E8EA729E42026001AB601 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		809E8EA929E42026001AB601 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		809E8EA929E42026001AB601 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		809E8EAC29E42026001AB601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		809E8EAE29E42027001AB601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		809E8EB129E42027001AB601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		809E8EB829E4211A001AB601 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		809E8EBC29E422C9001AB601 /* short-laser-gun-shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "short-laser-gun-shot.wav"; sourceTree = "<group>"; };
+		809E8EBD29E422CA001AB601 /* space-game.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "space-game.wav"; sourceTree = "<group>"; };
+		809E8EC029E422E8001AB601 /* start-level.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "start-level.wav"; sourceTree = "<group>"; };
+		809E8EC129E422E9001AB601 /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu.wav; sourceTree = "<group>"; };
+		809E8EC429E425C6001AB601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		809E8EC629E42614001AB601 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		809E8EC729E42614001AB601 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		809E8ECC29E42DAB001AB601 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		809E8ECE29E4312D001AB601 /* ScoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +62,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		802C22C029E44A260038841E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				802C22C929E44B1E0038841E /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		809E8E9529E42026001AB601 = {
 			isa = PBXGroup;
 			children = (
@@ -60,15 +90,66 @@
 			isa = PBXGroup;
 			children = (
 				809E8EA129E42026001AB601 /* AppDelegate.swift */,
-				809E8EA329E42026001AB601 /* GameScene.sks */,
-				809E8EA529E42026001AB601 /* Actions.sks */,
-				809E8EA729E42026001AB601 /* GameScene.swift */,
-				809E8EA929E42026001AB601 /* GameViewController.swift */,
-				809E8EAB29E42026001AB601 /* Main.storyboard */,
-				809E8EAE29E42027001AB601 /* Assets.xcassets */,
-				809E8EB029E42027001AB601 /* LaunchScreen.storyboard */,
+				802C22C129E44A350038841E /* Constants.swift */,
+				802C22C029E44A260038841E /* Extensions */,
+				809E8EBA29E422A4001AB601 /* Resources */,
+				809E8ECA29E426AB001AB601 /* Scenes */,
+				809E8ECB29E4270C001AB601 /* UI */,
 			);
 			path = "space-war";
+			sourceTree = "<group>";
+		};
+		809E8EBA29E422A4001AB601 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				809E8EAE29E42027001AB601 /* Assets.xcassets */,
+				802C22C729E44A5A0038841E /* Localizable.strings */,
+				809E8EC429E425C6001AB601 /* Info.plist */,
+				809E8EC529E425E8001AB601 /* Fonts */,
+				809E8EBB29E422AC001AB601 /* Sounds */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		809E8EBB29E422AC001AB601 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				809E8EC129E422E9001AB601 /* menu.wav */,
+				809E8EC029E422E8001AB601 /* start-level.wav */,
+				809E8EBC29E422C9001AB601 /* short-laser-gun-shot.wav */,
+				809E8EBD29E422CA001AB601 /* space-game.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		809E8EC529E425E8001AB601 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				809E8EC629E42614001AB601 /* Roboto-Regular.ttf */,
+				809E8EC729E42614001AB601 /* Roboto-Thin.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		809E8ECA29E426AB001AB601 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				809E8ECC29E42DAB001AB601 /* GameScene.swift */,
+				809E8EB829E4211A001AB601 /* MainMenuScene.swift */,
+				809E8EA929E42026001AB601 /* MainViewController.swift */,
+				802C22CB29E450EF0038841E /* SetupScenes.swift */,
+				809E8ECE29E4312D001AB601 /* ScoreScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		809E8ECB29E4270C001AB601 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				809E8EB029E42027001AB601 /* LaunchScreen.storyboard */,
+				809E8EAB29E42026001AB601 /* Main.storyboard */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,6 +181,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
+				ORGANIZATIONNAME = "Arturo Carretero Calvo";
 				TargetAttributes = {
 					809E8E9D29E42026001AB601 = {
 						CreatedOnToolsVersion = 14.3;
@@ -113,6 +195,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 809E8E9529E42026001AB601;
 			productRefGroup = 809E8E9F29E42026001AB601 /* Products */;
@@ -129,11 +212,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				809E8EC229E422E9001AB601 /* start-level.wav in Resources */,
 				809E8EAD29E42026001AB601 /* Main.storyboard in Resources */,
-				809E8EA429E42026001AB601 /* GameScene.sks in Resources */,
+				809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */,
 				809E8EAF29E42027001AB601 /* Assets.xcassets in Resources */,
+				809E8EBE29E422CA001AB601 /* short-laser-gun-shot.wav in Resources */,
+				802C22C529E44A5A0038841E /* Localizable.strings in Resources */,
 				809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */,
-				809E8EA629E42026001AB601 /* Actions.sks in Resources */,
+				809E8EBF29E422CA001AB601 /* space-game.wav in Resources */,
+				809E8EC329E422E9001AB601 /* menu.wav in Resources */,
+				809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,15 +232,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				809E8EA829E42026001AB601 /* GameScene.swift in Sources */,
-				809E8EAA29E42026001AB601 /* GameViewController.swift in Sources */,
+				809E8EAA29E42026001AB601 /* MainViewController.swift in Sources */,
+				809E8EB929E4211A001AB601 /* MainMenuScene.swift in Sources */,
+				802C22CA29E44B1E0038841E /* String.swift in Sources */,
+				809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */,
 				809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */,
+				809E8ECF29E4312D001AB601 /* ScoreScene.swift in Sources */,
+				802C22CC29E450EF0038841E /* SetupScenes.swift in Sources */,
+				802C22C229E44A350038841E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		802C22C729E44A5A0038841E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				802C22C629E44A5A0038841E /* en */,
+				802C22C829E44A6E0038841E /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		809E8EAB29E42026001AB601 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -176,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -236,6 +339,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -295,19 +399,25 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q4X55987WE;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "space-war/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Space War";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artcc.space-war";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -323,19 +433,25 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q4X55987WE;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "space-war/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Space War";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.artcc.space-war";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
