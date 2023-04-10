@@ -11,6 +11,7 @@
 		802C22C529E44A5A0038841E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 802C22C729E44A5A0038841E /* Localizable.strings */; };
 		802C22CA29E44B1E0038841E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C929E44B1E0038841E /* String.swift */; };
 		802C22CC29E450EF0038841E /* SetupScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22CB29E450EF0038841E /* SetupScenes.swift */; };
+		802DF9EB29E4D1EE003EC66D /* Turbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 802DF9EA29E4D1EE003EC66D /* Turbo.atlas */; };
 		809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA129E42026001AB601 /* AppDelegate.swift */; };
 		809E8EAA29E42026001AB601 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA929E42026001AB601 /* MainViewController.swift */; };
 		809E8EAD29E42026001AB601 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EAB29E42026001AB601 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		802C22C829E44A6E0038841E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		802C22C929E44B1E0038841E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		802C22CB29E450EF0038841E /* SetupScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScenes.swift; sourceTree = "<group>"; };
+		802DF9EA29E4D1EE003EC66D /* Turbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Turbo.atlas; sourceTree = "<group>"; };
 		809E8E9E29E42026001AB601 /* space-war.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "space-war.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		809E8EA129E42026001AB601 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		809E8EA929E42026001AB601 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		802DF9E929E4D1E5003EC66D /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				802DF9EA29E4D1EE003EC66D /* Turbo.atlas */,
+			);
+			path = Textures;
+			sourceTree = "<group>";
+		};
 		809E8E9529E42026001AB601 = {
 			isa = PBXGroup;
 			children = (
@@ -103,10 +113,11 @@
 			isa = PBXGroup;
 			children = (
 				809E8EAE29E42027001AB601 /* Assets.xcassets */,
-				802C22C729E44A5A0038841E /* Localizable.strings */,
-				809E8EC429E425C6001AB601 /* Info.plist */,
 				809E8EC529E425E8001AB601 /* Fonts */,
+				809E8EC429E425C6001AB601 /* Info.plist */,
+				802C22C729E44A5A0038841E /* Localizable.strings */,
 				809E8EBB29E422AC001AB601 /* Sounds */,
+				802DF9E929E4D1E5003EC66D /* Textures */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -218,6 +229,7 @@
 				809E8EAF29E42027001AB601 /* Assets.xcassets in Resources */,
 				809E8EBE29E422CA001AB601 /* short-laser-gun-shot.wav in Resources */,
 				802C22C529E44A5A0038841E /* Localizable.strings in Resources */,
+				802DF9EB29E4D1EE003EC66D /* Turbo.atlas in Resources */,
 				809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */,
 				809E8EBF29E422CA001AB601 /* space-game.wav in Resources */,
 				809E8EC329E422E9001AB601 /* menu.wav in Resources */,
