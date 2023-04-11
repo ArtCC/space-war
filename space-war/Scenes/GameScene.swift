@@ -6,6 +6,7 @@
 //  Copyright © 2023 Arturo Carretero Calvo. All rights reserved.
 //
 
+import GameplayKit
 import SpriteKit
 
 enum GameSceneNodes: String {
@@ -223,7 +224,8 @@ private extension GameScene {
     player.physicsBody?.isDynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.player
     player.physicsBody?.contactTestBitMask = PhysicsCategory.enemy
-    player.physicsBody?.collisionBitMask = PhysicsCategory.none
+    player.physicsBody?.collisionBitMask = PhysicsCategory.enemy
+    player.physicsBody?.usesPreciseCollisionDetection = true
 
     if let physicsBody = player.physicsBody {
       physicsBody.applyImpulse(CGVectorMake(10, 10))
@@ -319,8 +321,8 @@ private extension GameScene {
   func playerShot(in touchLocation: CGPoint) {
     let projectile = SKSpriteNode(imageNamed: "img_shot")
     projectile.name = GameSceneNodes.projectile.rawValue
-    projectile.position = CGPoint(x: player.position.x + 45.0, y: player.position.y)
-    projectile.zPosition = 1
+    projectile.position = CGPoint(x: player.position.x + 55.0, y: player.position.y)
+    projectile.zPosition = 1.0
     projectile.setScale(1.5)
     projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
     projectile.physicsBody?.isDynamic = true
@@ -352,7 +354,8 @@ private extension GameScene {
     asteroid.physicsBody = SKPhysicsBody(rectangleOf: asteroid.size)
     asteroid.physicsBody?.isDynamic = true
     asteroid.physicsBody?.categoryBitMask = PhysicsCategory.enemy
-    asteroid.physicsBody?.collisionBitMask = PhysicsCategory.all
+    asteroid.physicsBody?.collisionBitMask = PhysicsCategory.none
+    asteroid.physicsBody?.usesPreciseCollisionDetection = true
 
     let actualY = random(min: asteroid.size.height / 2, max: size.height - asteroid.size.height / 2)
 
