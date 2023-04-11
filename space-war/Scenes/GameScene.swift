@@ -13,6 +13,16 @@ enum GameSceneNodes: String {
   case joystick
   case joystickBase
   case player
+  case enemies
+  case projectile
+}
+
+struct PhysicsCategory {
+  static let none: UInt32 = 0
+  static let all: UInt32 = UInt32.max
+  static let enemy: UInt32 = 0b1
+  static let projectile: UInt32 = 0b10
+  static let player: UInt32 = 0b11
 }
 
 class GameScene: SKScene {
@@ -32,6 +42,7 @@ class GameScene: SKScene {
   private var velocityX: CGFloat = 0
   private var velocityY: CGFloat = 0
   private var joystickIsActive = false
+  private var enemiesDestroyed = 0
 
   // MARK: - Init
 
@@ -47,15 +58,24 @@ class GameScene: SKScene {
 
   override func didMove(to view: SKView) {
     createParallaxBackground()
+    createMenuMusic()
     createPlayer()
     createPlayerControls()
 
     physicsWorld.gravity = .zero
-    
+    physicsWorld.contactDelegate = self
+
     physicsBody = SKPhysicsBody(edgeLoopFrom: CGRectMake(CGRectGetMinX(frame),
                                                          CGRectGetMinY(frame),
                                                          frame.size.width,
                                                          frame.size.height))
+
+    run(SKAction.repeatForever(
+      SKAction.sequence([
+        SKAction.run(addAsteroids),
+        SKAction.wait(forDuration: 5.0)
+      ])
+    ))
   }
 
   override func update(_ currentTime: TimeInterval) {
@@ -88,7 +108,7 @@ extension GameScene {
           }
           selectedNodes[touch] = node
         } else if node.name == GameSceneNodes.firePad.rawValue {
-          playerShoot(in: touchLocation)
+          playerShot(in: touchLocation)
         }
       }
     }
@@ -167,11 +187,25 @@ private extension GameScene {
     }
   }
 
+  func createMenuMusic() {
+    let music = SKAudioNode(fileNamed: "space-game.wav")
+    music.autoplayLooped = true
+    music.isPositional = false
+
+    addChild(music)
+
+    music.run(SKAction.play())
+  }
+
   func createPlayer() {
     player.name = GameSceneNodes.player.rawValue
     player.zPosition = 1.0
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-    player.physicsBody = SKPhysicsBody(rectangleOf: player.frame.size)
+    player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
+    player.physicsBody?.isDynamic = true
+    player.physicsBody?.categoryBitMask = PhysicsCategory.player
+    player.physicsBody?.contactTestBitMask = PhysicsCategory.enemy
+    player.physicsBody?.collisionBitMask = PhysicsCategory.none
 
     if let physicsBody = player.physicsBody {
       physicsBody.applyImpulse(CGVectorMake(10, 10))
@@ -264,13 +298,20 @@ private extension GameScene {
     turboPlayer.isHidden = true
   }
 
-  func playerShoot(in touchLocation: CGPoint) {
-    let playerFire = SKSpriteNode(imageNamed: "img_shot")
-    playerFire.position = CGPoint(x: player.position.x + 45.0, y: player.position.y)
-    playerFire.zPosition = 3
-    playerFire.setScale(1.5)
+  func playerShot(in touchLocation: CGPoint) {
+    let projectile = SKSpriteNode(imageNamed: "img_shot")
+    projectile.name = GameSceneNodes.projectile.rawValue
+    projectile.position = CGPoint(x: player.position.x + 45.0, y: player.position.y)
+    projectile.zPosition = 1
+    projectile.setScale(1.5)
+    projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
+    projectile.physicsBody?.isDynamic = true
+    projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
+    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.enemy
+    projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
+    projectile.physicsBody?.usesPreciseCollisionDetection = true
 
-    addChild(playerFire)
+    addChild(projectile)
 
     let angle = player.zRotation - CGFloat.pi * 2
     let direction = CGVector(dx: cos(angle), dy: sin(angle))
@@ -282,6 +323,108 @@ private extension GameScene {
     let bulletRemove = SKAction.removeFromParent()
     let bulletAction = SKAction.sequence([bulletMove, bulletRemove])
 
-    playerFire.run(bulletAction)
+    projectile.run(bulletAction)
+
+    run(SKAction.playSoundFileNamed("short-laser-gun-shot.wav", waitForCompletion: false))
+  }
+
+  func addAsteroids() {
+    let asteroid = SKSpriteNode(imageNamed: "img_asteroids")
+    asteroid.name = GameSceneNodes.enemies.rawValue
+    asteroid.physicsBody = SKPhysicsBody(rectangleOf: asteroid.size)
+    asteroid.physicsBody?.isDynamic = true
+    asteroid.physicsBody?.categoryBitMask = PhysicsCategory.enemy
+    // asteroid.physicsBody?.contactTestBitMask = PhysicsCategory.projectile
+    asteroid.physicsBody?.collisionBitMask = PhysicsCategory.all
+
+    let actualY = random(min: asteroid.size.height / 2, max: size.height - asteroid.size.height / 2)
+
+    asteroid.position = CGPoint(x: size.width + asteroid.size.width / 2, y: actualY)
+
+    addChild(asteroid)
+
+    let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 2.0)
+    let repeatRotateAction = SKAction.repeatForever(rotateAction)
+    asteroid.run(repeatRotateAction)
+
+    let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+    let actionMove = SKAction.move(to: CGPoint(x: -asteroid.size.width / 2,
+                                               y: actualY),
+                                   duration: TimeInterval(actualDuration))
+    let actionMoveDone = SKAction.removeFromParent()
+
+    asteroid.run(SKAction.sequence([actionMove, actionMoveDone]))
+  }
+
+  func projectileDidCollideWithEnemy(projectile: SKSpriteNode, enemy: SKSpriteNode) {
+#warning("Añadir explosión del enemigo.")
+
+    projectile.removeFromParent()
+    enemy.removeFromParent()
+
+    enemiesDestroyed += 1
+    if enemiesDestroyed > 5 {
+      let reveal = SKTransition.crossFade(withDuration: 0.5)
+      let gameOverScene = GameOverScene(size: self.size, won: true)
+
+      view?.presentScene(gameOverScene, transition: reveal)
+    }
+  }
+
+  func playerDidCollideWithEnemy(player: SKSpriteNode, enemy: SKSpriteNode) {
+#warning("Añadir explosión de la nave.")
+
+    player.removeFromParent()
+    enemy.removeFromParent()
+
+    let reveal = SKTransition.crossFade(withDuration: 0.5)
+    let gameOverScene = GameOverScene(size: self.size, won: false)
+
+    view?.presentScene(gameOverScene, transition: reveal)
+  }
+}
+
+// MARK: - SKPhysicsContactDelegate
+
+extension GameScene: SKPhysicsContactDelegate {
+
+  func didBegin(_ contact: SKPhysicsContact) {
+    var firstBody: SKPhysicsBody
+    var secondBody: SKPhysicsBody
+
+    if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+      firstBody = contact.bodyA
+      secondBody = contact.bodyB
+    } else {
+      firstBody = contact.bodyB
+      secondBody = contact.bodyA
+    }
+
+    if (firstBody.categoryBitMask == PhysicsCategory.enemy && PhysicsCategory.enemy != 0) &&
+        (secondBody.categoryBitMask == PhysicsCategory.projectile && PhysicsCategory.projectile != 0) {
+      if let enemy = firstBody.node as? SKSpriteNode,
+         let projectile = secondBody.node as? SKSpriteNode {
+        projectileDidCollideWithEnemy(projectile: projectile, enemy: enemy)
+      }
+    } else if (firstBody.categoryBitMask == PhysicsCategory.enemy && PhysicsCategory.enemy != 0) &&
+                (secondBody.categoryBitMask == PhysicsCategory.player && PhysicsCategory.player != 0) {
+      if let enemy = firstBody.node as? SKSpriteNode,
+         let player = secondBody.node as? SKSpriteNode {
+        playerDidCollideWithEnemy(player: player, enemy: enemy)
+      }
+    }
+  }
+}
+
+// MARK: - Private
+
+private extension GameScene {
+
+  func random() -> CGFloat {
+    return CGFloat(Float(arc4random()) / Float(0xFFFFFFFF))
+  }
+
+  func random(min: CGFloat, max: CGFloat) -> CGFloat {
+    return random() * (max - min) + min
   }
 }

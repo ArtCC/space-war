@@ -22,7 +22,7 @@ class MainMenuScene: SKScene {
     static let defaultFontSize: CGFloat = 30
 
     // Animation
-    static let duration: CGFloat = 0.5
+    static let duration: CGFloat = 0.25
   }
 
   // MARK: - Lifecycle's functions
@@ -32,7 +32,10 @@ class MainMenuScene: SKScene {
 
     createTitleLabel()
     createPlayLabel()
+    createMenuMusic()
   }
+
+  // MARK: - UITouch
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     for touch in touches {
@@ -66,10 +69,22 @@ class MainMenuScene: SKScene {
     addChild(playLabel)
   }
 
+  private func createMenuMusic() {
+    let music = SKAudioNode(fileNamed: "menu.wav")
+    music.autoplayLooped = true
+    music.isPositional = false
+
+    addChild(music)
+
+    music.run(SKAction.play())
+  }
+
   private func routeToGameScene() {
+    run(SKAction.playSoundFileNamed("start-level.wav", waitForCompletion: false))
+
     let reveal = SKTransition.crossFade(withDuration: SceneTraits.duration)
     let gameScene = GameScene(size: self.size)
 
-    self.view?.presentScene(gameScene, transition: reveal)
+    view?.presentScene(gameScene, transition: reveal)
   }
 }

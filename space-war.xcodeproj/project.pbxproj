@@ -27,6 +27,7 @@
 		809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC629E42614001AB601 /* Roboto-Regular.ttf */; };
 		809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC729E42614001AB601 /* Roboto-Thin.ttf */; };
 		809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECC29E42DAB001AB601 /* GameScene.swift */; };
+		80F0DB7529E575F400F8782B /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F0DB7429E575F400F8782B /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		809E8EC629E42614001AB601 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		809E8EC729E42614001AB601 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		809E8ECC29E42DAB001AB601 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		80F0DB7429E575F400F8782B /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 		809E8ECA29E426AB001AB601 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				80F0DB7429E575F400F8782B /* GameOverScene.swift */,
 				809E8ECC29E42DAB001AB601 /* GameScene.swift */,
 				809E8EB829E4211A001AB601 /* MainMenuScene.swift */,
 				809E8EA929E42026001AB601 /* MainViewController.swift */,
@@ -259,6 +262,7 @@
 			files = (
 				809E8EAA29E42026001AB601 /* MainViewController.swift in Sources */,
 				809E8EB929E4211A001AB601 /* MainMenuScene.swift in Sources */,
+				80F0DB7529E575F400F8782B /* GameOverScene.swift in Sources */,
 				802C22CA29E44B1E0038841E /* String.swift in Sources */,
 				809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */,
 				809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */,
