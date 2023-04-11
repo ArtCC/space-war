@@ -25,11 +25,11 @@ class GameScene: SKScene {
   private let firePad = SKSpriteNode(imageNamed: "img_joystick")
 
   private var turbo = SKSpriteNode()
+  private var turboFrames: [SKTexture] = []
   private var selectedNodes: [UITouch: SKSpriteNode] = [:]
   private var velocityX: CGFloat = 0
   private var velocityY: CGFloat = 0
   private var joystickIsActive = false
-  private var turboFrames: [SKTexture] = []
 
   // MARK: - Init
 
@@ -44,16 +44,9 @@ class GameScene: SKScene {
   // MARK: - Lifecycle's functions
 
   override func didMove(to view: SKView) {
-    createBackground()
-
-    player.name = GameSceneNodes.player.rawValue
-    player.zPosition = 1.0
-    player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-    player.physicsBody = SKPhysicsBody(rectangleOf: player.frame.size)
-
-    if let physicsBody = player.physicsBody {
-      physicsBody.applyImpulse(CGVectorMake(10, 10))
-    }
+    createParallaxBackground()
+    createPlayer()
+    createPlayerControls()
 
     physicsWorld.gravity = .zero
     
@@ -61,33 +54,18 @@ class GameScene: SKScene {
                                                          CGRectGetMinY(frame),
                                                          frame.size.width,
                                                          frame.size.height))
-
-    joystickBase.name = GameSceneNodes.joystickBase.rawValue
-    joystickBase.position = CGPoint(x: joystickBase.size.width / 4 + 50.0, y: joystickBase.size.height / 4)
-    joystickBase.zPosition = 1.0
-    joystickBase.alpha = 0.2
-    joystickBase.setScale(0.3)
-
-    joystick.name = GameSceneNodes.joystick.rawValue
-    joystick.position = joystickBase.position
-    joystick.zPosition = 2.0
-    joystick.alpha = 0.2
-    joystick.setScale(0.15)
-
-    firePad.anchorPoint = CGPoint(x: 1.0, y: 0.0)
-    firePad.name = GameSceneNodes.firePad.rawValue
-    firePad.position = CGPoint(x: size.width - 75.0, y: size.height / 8)
-    firePad.zPosition = 2.0
-    firePad.alpha = 0.2
-    firePad.setScale(0.25)
-
-    buildShipTurbo()
-
-    addChild(player)
-    addChild(joystickBase)
-    addChild(joystick)
-    addChild(firePad)
   }
+
+  override func update(_ currentTime: TimeInterval) {
+    if joystickIsActive == true {
+      player.position = CGPointMake(player.position.x - (velocityX * 3), player.position.y + (velocityY * 3))
+    }
+  }
+}
+
+// MARK: - UITouch
+
+extension GameScene {
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     for touch in touches {
@@ -102,7 +80,7 @@ class GameScene: SKScene {
           }
           selectedNodes[touch] = node
         } else if node.name == GameSceneNodes.firePad.rawValue {
-          shoot(in: touchLocation)
+          playerShoot(in: touchLocation)
         }
       }
     }
@@ -111,7 +89,7 @@ class GameScene: SKScene {
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     for touch in touches {
       let touchLocation = touch.location(in: self)
-      
+
       if let node = selectedNodes[touch] {
         if joystickIsActive == true {
           let vector = CGVector(dx: touchLocation.x - joystickBase.position.x,
@@ -155,19 +133,13 @@ class GameScene: SKScene {
       }
     }
   }
-
-  override func update(_ currentTime: TimeInterval) {
-    if joystickIsActive == true {
-      player.position = CGPointMake(player.position.x - (velocityX * 3), player.position.y + (velocityY * 3))
-    }
-  }
 }
 
 // MARK: - Private
 
 private extension GameScene {
 
-  func createBackground() {
+  func createParallaxBackground() {
     let backgroundTexture = SKTexture(imageNamed: "img_green_nebula")
 
     for i in 0...1 {
@@ -185,6 +157,46 @@ private extension GameScene {
 
       background.run(moveForever)
     }
+  }
+
+  func createPlayer() {
+    player.name = GameSceneNodes.player.rawValue
+    player.zPosition = 1.0
+    player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+    player.physicsBody = SKPhysicsBody(rectangleOf: player.frame.size)
+
+    if let physicsBody = player.physicsBody {
+      physicsBody.applyImpulse(CGVectorMake(10, 10))
+    }
+
+    addChild(player)
+
+    buildShipTurbo()
+  }
+
+  func createPlayerControls() {
+    joystickBase.name = GameSceneNodes.joystickBase.rawValue
+    joystickBase.position = CGPoint(x: joystickBase.size.width / 4 + 50.0, y: joystickBase.size.height / 4)
+    joystickBase.zPosition = 1.0
+    joystickBase.alpha = 0.2
+    joystickBase.setScale(0.3)
+
+    joystick.name = GameSceneNodes.joystick.rawValue
+    joystick.position = joystickBase.position
+    joystick.zPosition = 2.0
+    joystick.alpha = 0.2
+    joystick.setScale(0.15)
+
+    firePad.anchorPoint = CGPoint(x: 1.0, y: 0.0)
+    firePad.name = GameSceneNodes.firePad.rawValue
+    firePad.position = CGPoint(x: size.width - 75.0, y: size.height / 8)
+    firePad.zPosition = 2.0
+    firePad.alpha = 0.2
+    firePad.setScale(0.25)
+
+    addChild(joystickBase)
+    addChild(joystick)
+    addChild(firePad)
   }
 
   func buildShipTurbo() {
@@ -213,7 +225,7 @@ private extension GameScene {
               withKey: "turbo")
   }
 
-  func shoot(in touchLocation: CGPoint) {
+  func playerShoot(in touchLocation: CGPoint) {
     let playerFire = SKSpriteNode(imageNamed: "img_shot")
     playerFire.position = CGPoint(x: player.position.x + 45.0, y: player.position.y)
     playerFire.zPosition = 3

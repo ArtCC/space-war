@@ -1,5 +1,5 @@
 //
-//  SetupScenes.swift
+//  Components.swift
 //  space-war
 //
 //  Created by Arturo Carretero Calvo on 10/4/23.
@@ -8,14 +8,15 @@
 
 import SpriteKit
 
-struct SetupScenes {
+struct Components {
 
-  static func getBackground(for scene: SKScene) -> SKSpriteNode {
+  static func getDefaultBackground(for scene: SKScene) -> SKSpriteNode {
     let background = SKSpriteNode(imageNamed: "img_green_nebula")
     background.alpha = 0.5
     background.zPosition = -1
     background.size = scene.frame.size
     background.position = CGPoint(x: scene.frame.midX, y: scene.frame.midY)
+    
     return background
   }
 }

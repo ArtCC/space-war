@@ -10,7 +10,7 @@
 		802C22C229E44A350038841E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C129E44A350038841E /* Constants.swift */; };
 		802C22C529E44A5A0038841E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 802C22C729E44A5A0038841E /* Localizable.strings */; };
 		802C22CA29E44B1E0038841E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C929E44B1E0038841E /* String.swift */; };
-		802C22CC29E450EF0038841E /* SetupScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22CB29E450EF0038841E /* SetupScenes.swift */; };
+		802C22CC29E450EF0038841E /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22CB29E450EF0038841E /* Components.swift */; };
 		802DF9EB29E4D1EE003EC66D /* Turbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 802DF9EA29E4D1EE003EC66D /* Turbo.atlas */; };
 		809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA129E42026001AB601 /* AppDelegate.swift */; };
 		809E8EAA29E42026001AB601 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA929E42026001AB601 /* MainViewController.swift */; };
@@ -25,7 +25,6 @@
 		809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC629E42614001AB601 /* Roboto-Regular.ttf */; };
 		809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC729E42614001AB601 /* Roboto-Thin.ttf */; };
 		809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECC29E42DAB001AB601 /* GameScene.swift */; };
-		809E8ECF29E4312D001AB601 /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECE29E4312D001AB601 /* ScoreScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,7 @@
 		802C22C629E44A5A0038841E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		802C22C829E44A6E0038841E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		802C22C929E44B1E0038841E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		802C22CB29E450EF0038841E /* SetupScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupScenes.swift; sourceTree = "<group>"; };
+		802C22CB29E450EF0038841E /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		802DF9EA29E4D1EE003EC66D /* Turbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Turbo.atlas; sourceTree = "<group>"; };
 		809E8E9E29E42026001AB601 /* space-war.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "space-war.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		809E8EA129E42026001AB601 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +49,6 @@
 		809E8EC629E42614001AB601 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		809E8EC729E42614001AB601 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		809E8ECC29E42DAB001AB601 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		809E8ECE29E4312D001AB601 /* ScoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +62,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80210A6F29E56A60005FCB32 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				802C22CB29E450EF0038841E /* Components.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		802C22C029E44A260038841E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +107,7 @@
 			children = (
 				809E8EA129E42026001AB601 /* AppDelegate.swift */,
 				802C22C129E44A350038841E /* Constants.swift */,
+				80210A6F29E56A60005FCB32 /* Components */,
 				802C22C029E44A260038841E /* Extensions */,
 				809E8EBA29E422A4001AB601 /* Resources */,
 				809E8ECA29E426AB001AB601 /* Scenes */,
@@ -148,8 +155,6 @@
 				809E8ECC29E42DAB001AB601 /* GameScene.swift */,
 				809E8EB829E4211A001AB601 /* MainMenuScene.swift */,
 				809E8EA929E42026001AB601 /* MainViewController.swift */,
-				802C22CB29E450EF0038841E /* SetupScenes.swift */,
-				809E8ECE29E4312D001AB601 /* ScoreScene.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -249,8 +254,7 @@
 				802C22CA29E44B1E0038841E /* String.swift in Sources */,
 				809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */,
 				809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */,
-				809E8ECF29E4312D001AB601 /* ScoreScene.swift in Sources */,
-				802C22CC29E450EF0038841E /* SetupScenes.swift in Sources */,
+				802C22CC29E450EF0038841E /* Components.swift in Sources */,
 				802C22C229E44A350038841E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
