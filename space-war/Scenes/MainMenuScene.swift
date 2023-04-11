@@ -17,9 +17,15 @@ class MainMenuScene: SKScene {
   // MARK: - Properties
 
   private struct SceneTraits {
-    // Font
-    static let titleFontSize: CGFloat = 40
-    static let defaultFontSize: CGFloat = 30
+    // Margin
+    static let titleLabelTop: CGFloat = 15
+    static let titleLabelLeading: CGFloat = 50
+    static let scoreLabelMargin: CGFloat = 35
+
+    // Size
+    static let titleFontSize: CGFloat = 60
+    static let defaultFontSize: CGFloat = 45
+    static let scoreFontSize: CGFloat = 20
 
     // Animation
     static let duration: CGFloat = 0.25
@@ -32,6 +38,7 @@ class MainMenuScene: SKScene {
 
     createTitleLabel()
     createPlayLabel()
+    createScoreLabel()
     createMenuMusic()
   }
 
@@ -51,22 +58,40 @@ class MainMenuScene: SKScene {
   // MARK: - Private
 
   private func createTitleLabel() {
-    let titleLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+    let titleLabel = SKLabelNode(fontNamed: Constants.robotoThinFont)
     titleLabel.text = "main.menu.title".localized()
     titleLabel.fontSize = SceneTraits.titleFontSize
-    titleLabel.position = CGPoint(x: size.width / 2, y: size.height / 2 + 75)
+
+    titleLabel.horizontalAlignmentMode = .left
+    titleLabel.verticalAlignmentMode = .top
+    titleLabel.position = CGPoint(x: SceneTraits.titleLabelLeading,
+                                  y: size.height - SceneTraits.titleLabelTop - titleLabel.frame.size.height / 2)
 
     addChild(titleLabel)
   }
 
   private func createPlayLabel() {
-    let playLabel = SKLabelNode(fontNamed: Constants.robotoThinFont)
+    let playLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
     playLabel.text = "main.menu.play.option.title".localized()
     playLabel.fontSize = SceneTraits.defaultFontSize
     playLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
     playLabel.name = MainMenuOption.game.rawValue
 
     addChild(playLabel)
+  }
+
+  private func createScoreLabel() {
+    let score = String(ScoreManager.getScore())
+    let scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+    scoreLabel.text = String(format: "main.menu.score.title".localized(), score)
+    scoreLabel.fontSize = SceneTraits.scoreFontSize
+
+    scoreLabel.horizontalAlignmentMode = .right
+    scoreLabel.verticalAlignmentMode = .top
+    scoreLabel.position = CGPoint(x: size.width - SceneTraits.scoreLabelMargin,
+                                  y: size.height - SceneTraits.scoreLabelMargin)
+
+    addChild(scoreLabel)
   }
 
   private func createMenuMusic() {

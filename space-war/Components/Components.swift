@@ -10,9 +10,11 @@ import SpriteKit
 
 struct Components {
 
+  // MARK: - Public
+
   static func getDefaultBackground(for scene: SKScene) -> SKSpriteNode {
-    let background = SKSpriteNode(imageNamed: "img_green_nebula")
-    background.alpha = 0.5
+    let background = SKSpriteNode(imageNamed: "img_menu_background")
+    background.alpha = 0.4
     background.zPosition = -1
     background.size = scene.frame.size
     background.position = CGPoint(x: scene.frame.midX, y: scene.frame.midY)

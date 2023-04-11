@@ -31,7 +31,7 @@ class GameOverScene: SKScene {
   override func didMove(to view: SKView) {
     addChild(Components.getDefaultBackground(for: self))
 
-    let message = won ? "You Won!" : "You Lose :["
+    let message = won ? "game.over.won".localized() : "game.over.lose".localized()
 
     let label = SKLabelNode(fontNamed: Constants.robotoRegularFont)
     label.text = message

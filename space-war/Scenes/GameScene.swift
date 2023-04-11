@@ -29,11 +29,17 @@ class GameScene: SKScene {
 
   // MARK: - Properties
 
+  private struct SceneTraits {
+    // Size
+    static let scoreFontSize: CGFloat = 20
+  }
+
   private let player = SKSpriteNode(imageNamed: "img_ship")
   private let joystickBase = SKSpriteNode(imageNamed: "img_base_joystick")
   private let joystick = SKSpriteNode(imageNamed: "img_joystick")
   private let firePad = SKSpriteNode(imageNamed: "img_joystick")
 
+  private var scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
   private var normalPlayer = SKSpriteNode()
   private var normalPlayerFrames: [SKTexture] = []
   private var turboPlayer = SKSpriteNode()
@@ -58,6 +64,7 @@ class GameScene: SKScene {
 
   override func didMove(to view: SKView) {
     createParallaxBackground()
+    createScoreLabel()
     createMenuMusic()
     createPlayer()
     createPlayerControls()
@@ -168,7 +175,7 @@ extension GameScene {
 private extension GameScene {
 
   func createParallaxBackground() {
-    let backgroundTexture = SKTexture(imageNamed: "img_green_nebula")
+    let backgroundTexture = SKTexture(imageNamed: "img_background_game")
 
     for i in 0...1 {
       let background = SKSpriteNode(texture: backgroundTexture)
@@ -185,6 +192,17 @@ private extension GameScene {
 
       background.run(moveForever)
     }
+  }
+
+  func createScoreLabel() {
+    scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
+    scoreLabel.fontSize = SceneTraits.scoreFontSize
+
+    scoreLabel.horizontalAlignmentMode = .right
+    scoreLabel.verticalAlignmentMode = .top
+    scoreLabel.position = CGPoint(x: size.width - 35.0, y: size.height - 35.0)
+
+    addChild(scoreLabel)
   }
 
   func createMenuMusic() {
@@ -227,14 +245,14 @@ private extension GameScene {
     joystick.name = GameSceneNodes.joystick.rawValue
     joystick.position = joystickBase.position
     joystick.zPosition = 2.0
-    joystick.alpha = 0.2
+    joystick.alpha = 0.3
     joystick.setScale(0.15)
 
     firePad.anchorPoint = CGPoint(x: 1.0, y: 0.0)
     firePad.name = GameSceneNodes.firePad.rawValue
     firePad.position = CGPoint(x: size.width - 75.0, y: size.height / 8)
-    firePad.zPosition = 2.0
-    firePad.alpha = 0.2
+    firePad.zPosition = 1.0
+    firePad.alpha = 0.3
     firePad.setScale(0.25)
 
     addChild(joystickBase)
@@ -334,7 +352,6 @@ private extension GameScene {
     asteroid.physicsBody = SKPhysicsBody(rectangleOf: asteroid.size)
     asteroid.physicsBody?.isDynamic = true
     asteroid.physicsBody?.categoryBitMask = PhysicsCategory.enemy
-    // asteroid.physicsBody?.contactTestBitMask = PhysicsCategory.projectile
     asteroid.physicsBody?.collisionBitMask = PhysicsCategory.all
 
     let actualY = random(min: asteroid.size.height / 2, max: size.height - asteroid.size.height / 2)
@@ -356,14 +373,80 @@ private extension GameScene {
     asteroid.run(SKAction.sequence([actionMove, actionMoveDone]))
   }
 
+  func createDefaultExplosion(in position: CGPoint) {
+    let animatedAtlas = SKTextureAtlas(named: "Explosion")
+    let numImages = animatedAtlas.textureNames.count
+
+    var explosion = SKSpriteNode()
+    var frames: [SKTexture] = []
+
+    for i in 1...numImages {
+      let textureName = "Explosion1_\(i)"
+      frames.append(animatedAtlas.textureNamed(textureName))
+    }
+
+    let firstFrameTexture = frames[0]
+    explosion = SKSpriteNode(texture: firstFrameTexture)
+    explosion.position = position
+
+    addChild(explosion)
+
+    run(SKAction.playSoundFileNamed("enemy-explosion.wav", waitForCompletion: false))
+
+    explosion.run(SKAction.animate(with: frames,
+                                   timePerFrame: 0.1,
+                                   resize: false,
+                                   restore: true)) {
+      explosion.removeFromParent()
+    }
+  }
+
+  func createPlayerExplosion(in position: CGPoint, completion: @escaping() -> Void) {
+    let animatedAtlas = SKTextureAtlas(named: "PlayerExplosion")
+    let numImages = animatedAtlas.textureNames.count
+
+    var explosion = SKSpriteNode()
+    var frames: [SKTexture] = []
+
+    for i in 1...numImages {
+      let textureName = "Ship6_Explosion_\(i)"
+      frames.append(animatedAtlas.textureNamed(textureName))
+    }
+
+    let firstFrameTexture = frames[0]
+    explosion = SKSpriteNode(texture: firstFrameTexture)
+    explosion.position = position
+
+    addChild(explosion)
+
+    run(SKAction.playSoundFileNamed("player-explosion.wav", waitForCompletion: false))
+
+    explosion.run(SKAction.animate(with: frames,
+                                   timePerFrame: 0.1,
+                                   resize: false,
+                                   restore: true)) {
+      explosion.removeFromParent()
+
+      completion()
+    }
+  }
+}
+
+// MARK: - Collisions
+
+extension GameScene {
+
   func projectileDidCollideWithEnemy(projectile: SKSpriteNode, enemy: SKSpriteNode) {
-#warning("Añadir explosión del enemigo.")
+    createDefaultExplosion(in: enemy.position)
 
     projectile.removeFromParent()
     enemy.removeFromParent()
 
     enemiesDestroyed += 1
-    if enemiesDestroyed > 5 {
+
+    updateScore()
+
+    if enemiesDestroyed > 100 {
       let reveal = SKTransition.crossFade(withDuration: 0.5)
       let gameOverScene = GameOverScene(size: self.size, won: true)
 
@@ -372,15 +455,15 @@ private extension GameScene {
   }
 
   func playerDidCollideWithEnemy(player: SKSpriteNode, enemy: SKSpriteNode) {
-#warning("Añadir explosión de la nave.")
+    createPlayerExplosion(in: player.position) {
+      let reveal = SKTransition.crossFade(withDuration: 0.5)
+      let gameOverScene = GameOverScene(size: self.size, won: false)
+
+      self.view?.presentScene(gameOverScene, transition: reveal)
+    }
 
     player.removeFromParent()
     enemy.removeFromParent()
-
-    let reveal = SKTransition.crossFade(withDuration: 0.5)
-    let gameOverScene = GameOverScene(size: self.size, won: false)
-
-    view?.presentScene(gameOverScene, transition: reveal)
   }
 }
 
@@ -426,5 +509,11 @@ private extension GameScene {
 
   func random(min: CGFloat, max: CGFloat) -> CGFloat {
     return random() * (max - min) + min
+  }
+
+  func updateScore() {
+    ScoreManager.saveScore(enemiesDestroyed)
+
+    scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
   }
 }
