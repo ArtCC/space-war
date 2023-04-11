@@ -6,7 +6,6 @@
 //  Copyright © 2023 Arturo Carretero Calvo. All rights reserved.
 //
 
-import GameplayKit
 import SpriteKit
 
 enum GameSceneNodes: String {
@@ -14,8 +13,10 @@ enum GameSceneNodes: String {
   case joystick
   case joystickBase
   case player
-  case enemies
-  case projectile
+  case playerProjectile
+  case asteroid
+  case enemy
+  case enemyProjectile
 }
 
 struct PhysicsCategory {
@@ -24,6 +25,7 @@ struct PhysicsCategory {
   static let enemy: UInt32 = 0b1
   static let projectile: UInt32 = 0b10
   static let player: UInt32 = 0b11
+  static let enemyProjectile: UInt32 = 0b100
 }
 
 class GameScene: SKScene {
@@ -40,6 +42,7 @@ class GameScene: SKScene {
   private let joystick = SKSpriteNode(imageNamed: "img_joystick")
   private let firePad = SKSpriteNode(imageNamed: "img_joystick")
 
+  private var enemy = SKSpriteNode(imageNamed: "img_enemy")
   private var scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
   private var normalPlayer = SKSpriteNode()
   private var normalPlayerFrames: [SKTexture] = []
@@ -219,7 +222,7 @@ private extension GameScene {
   func createPlayer() {
     player.name = GameSceneNodes.player.rawValue
     player.zPosition = 1.0
-    player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+    player.position = CGPoint(x: size.width * 0.15, y: size.height * 0.5)
     player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
     player.physicsBody?.isDynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.player
@@ -320,7 +323,7 @@ private extension GameScene {
 
   func playerShot(in touchLocation: CGPoint) {
     let projectile = SKSpriteNode(imageNamed: "img_shot")
-    projectile.name = GameSceneNodes.projectile.rawValue
+    projectile.name = GameSceneNodes.playerProjectile.rawValue
     projectile.position = CGPoint(x: player.position.x + 55.0, y: player.position.y)
     projectile.zPosition = 1.0
     projectile.setScale(1.5)
@@ -348,9 +351,23 @@ private extension GameScene {
     run(SKAction.playSoundFileNamed("short-laser-gun-shot.wav", waitForCompletion: false))
   }
 
+  func addEnemy() {
+    enemy = SKSpriteNode(imageNamed: "img_enemy")
+    enemy.name = GameSceneNodes.enemy.rawValue
+    enemy.position = CGPoint(x: size.width - 75.0, y: size.height / 2)
+    enemy.zPosition = 1
+    enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)
+    enemy.physicsBody?.categoryBitMask = PhysicsCategory.enemy
+    enemy.physicsBody?.contactTestBitMask = PhysicsCategory.player
+    enemy.physicsBody?.collisionBitMask = PhysicsCategory.none
+    enemy.physicsBody?.usesPreciseCollisionDetection = true
+
+    addChild(enemy)
+  }
+
   func addAsteroids() {
     let asteroid = SKSpriteNode(imageNamed: "img_asteroids")
-    asteroid.name = GameSceneNodes.enemies.rawValue
+    asteroid.name = GameSceneNodes.asteroid.rawValue
     asteroid.physicsBody = SKPhysicsBody(rectangleOf: asteroid.size)
     asteroid.physicsBody?.isDynamic = true
     asteroid.physicsBody?.categoryBitMask = PhysicsCategory.enemy
@@ -433,6 +450,34 @@ private extension GameScene {
       completion()
     }
   }
+
+  func createEnemyExplosion(in position: CGPoint) {
+    let animatedAtlas = SKTextureAtlas(named: "EnemyExplosion")
+    let numImages = animatedAtlas.textureNames.count
+
+    var explosion = SKSpriteNode()
+    var frames: [SKTexture] = []
+
+    for i in 1...numImages {
+      let textureName = "Ship2_Explosion_\(i)"
+      frames.append(animatedAtlas.textureNamed(textureName))
+    }
+
+    let firstFrameTexture = frames[0]
+    explosion = SKSpriteNode(texture: firstFrameTexture)
+    explosion.position = position
+
+    addChild(explosion)
+
+    run(SKAction.playSoundFileNamed("enemy-explosion.wav", waitForCompletion: false))
+
+    explosion.run(SKAction.animate(with: frames,
+                                   timePerFrame: 0.1,
+                                   resize: false,
+                                   restore: true)) {
+      explosion.removeFromParent()
+    }
+  }
 }
 
 // MARK: - Collisions
@@ -440,7 +485,11 @@ private extension GameScene {
 extension GameScene {
 
   func projectileDidCollideWithEnemy(projectile: SKSpriteNode, enemy: SKSpriteNode) {
-    createDefaultExplosion(in: enemy.position)
+    if enemy.name == GameSceneNodes.asteroid.rawValue {
+      createDefaultExplosion(in: enemy.position)
+    } else if enemy.name == GameSceneNodes.enemy.rawValue {
+      createEnemyExplosion(in: enemy.position)
+    }
 
     projectile.removeFromParent()
     enemy.removeFromParent()
