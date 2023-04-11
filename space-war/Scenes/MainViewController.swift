@@ -16,6 +16,18 @@ class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    createMainScene()
+  }
+
+  // MARK: - Setup functions
+
+  override var prefersStatusBarHidden: Bool {
+    return true
+  }
+
+  // MARK: - Private
+
+  private func createMainScene() {
     let scene = MainMenuScene(size: view.bounds.size)
 
     let skView = self.view as! SKView
@@ -24,11 +36,5 @@ class MainViewController: UIViewController {
     skView.showsFPS = false
     skView.showsNodeCount = false
     skView.isMultipleTouchEnabled = true
-  }
-
-  // MARK: - Setup functions
-
-  override var prefersStatusBarHidden: Bool {
-    return true
   }
 }
