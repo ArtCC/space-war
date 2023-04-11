@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80210A7129E56EC6005FCB32 /* PlayerNormal.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80210A7029E56EC6005FCB32 /* PlayerNormal.atlas */; };
+		80210A7329E57195005FCB32 /* EnemyTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80210A7229E57195005FCB32 /* EnemyTurbo.atlas */; };
 		802C22C229E44A350038841E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C129E44A350038841E /* Constants.swift */; };
 		802C22C529E44A5A0038841E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 802C22C729E44A5A0038841E /* Localizable.strings */; };
 		802C22CA29E44B1E0038841E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C929E44B1E0038841E /* String.swift */; };
 		802C22CC29E450EF0038841E /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22CB29E450EF0038841E /* Components.swift */; };
-		802DF9EB29E4D1EE003EC66D /* Turbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 802DF9EA29E4D1EE003EC66D /* Turbo.atlas */; };
+		802DF9EB29E4D1EE003EC66D /* PlayerTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */; };
 		809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA129E42026001AB601 /* AppDelegate.swift */; };
 		809E8EAA29E42026001AB601 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EA929E42026001AB601 /* MainViewController.swift */; };
 		809E8EAD29E42026001AB601 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EAB29E42026001AB601 /* Main.storyboard */; };
@@ -28,12 +30,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		80210A7029E56EC6005FCB32 /* PlayerNormal.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerNormal.atlas; sourceTree = "<group>"; };
+		80210A7229E57195005FCB32 /* EnemyTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = EnemyTurbo.atlas; sourceTree = "<group>"; };
 		802C22C129E44A350038841E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		802C22C629E44A5A0038841E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		802C22C829E44A6E0038841E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		802C22C929E44B1E0038841E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		802C22CB29E450EF0038841E /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
-		802DF9EA29E4D1EE003EC66D /* Turbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Turbo.atlas; sourceTree = "<group>"; };
+		802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerTurbo.atlas; sourceTree = "<group>"; };
 		809E8E9E29E42026001AB601 /* space-war.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "space-war.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		809E8EA129E42026001AB601 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		809E8EA929E42026001AB601 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +85,9 @@
 		802DF9E929E4D1E5003EC66D /* Textures */ = {
 			isa = PBXGroup;
 			children = (
-				802DF9EA29E4D1EE003EC66D /* Turbo.atlas */,
+				80210A7229E57195005FCB32 /* EnemyTurbo.atlas */,
+				80210A7029E56EC6005FCB32 /* PlayerNormal.atlas */,
+				802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */,
 			);
 			path = Textures;
 			sourceTree = "<group>";
@@ -231,14 +237,16 @@
 				809E8EC229E422E9001AB601 /* start-level.wav in Resources */,
 				809E8EAD29E42026001AB601 /* Main.storyboard in Resources */,
 				809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */,
+				80210A7329E57195005FCB32 /* EnemyTurbo.atlas in Resources */,
 				809E8EAF29E42027001AB601 /* Assets.xcassets in Resources */,
 				809E8EBE29E422CA001AB601 /* short-laser-gun-shot.wav in Resources */,
 				802C22C529E44A5A0038841E /* Localizable.strings in Resources */,
-				802DF9EB29E4D1EE003EC66D /* Turbo.atlas in Resources */,
+				802DF9EB29E4D1EE003EC66D /* PlayerTurbo.atlas in Resources */,
 				809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */,
 				809E8EBF29E422CA001AB601 /* space-game.wav in Resources */,
 				809E8EC329E422E9001AB601 /* menu.wav in Resources */,
 				809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */,
+				80210A7129E56EC6005FCB32 /* PlayerNormal.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,8 +24,10 @@ class GameScene: SKScene {
   private let joystick = SKSpriteNode(imageNamed: "img_joystick")
   private let firePad = SKSpriteNode(imageNamed: "img_joystick")
 
-  private var turbo = SKSpriteNode()
-  private var turboFrames: [SKTexture] = []
+  private var normalPlayer = SKSpriteNode()
+  private var normalPlayerFrames: [SKTexture] = []
+  private var turboPlayer = SKSpriteNode()
+  private var turboPlayerFrames: [SKTexture] = []
   private var selectedNodes: [UITouch: SKSpriteNode] = [:]
   private var velocityX: CGFloat = 0
   private var velocityY: CGFloat = 0
@@ -59,6 +61,12 @@ class GameScene: SKScene {
   override func update(_ currentTime: TimeInterval) {
     if joystickIsActive == true {
       player.position = CGPointMake(player.position.x - (velocityX * 3), player.position.y + (velocityY * 3))
+
+      normalPlayer.isHidden = true
+      turboPlayer.isHidden = false
+    } else {
+      normalPlayer.isHidden = false
+      turboPlayer.isHidden = true
     }
   }
 }
@@ -171,7 +179,8 @@ private extension GameScene {
 
     addChild(player)
 
-    buildShipTurbo()
+    buildNormalPlayerShip()
+    buildTurboPlayerShip()
   }
 
   func createPlayerControls() {
@@ -199,8 +208,36 @@ private extension GameScene {
     addChild(firePad)
   }
 
-  func buildShipTurbo() {
-    let animatedAtlas = SKTextureAtlas(named: "Turbo")
+  func buildNormalPlayerShip() {
+    let animatedAtlas = SKTextureAtlas(named: "PlayerNormal")
+    let numImages = animatedAtlas.textureNames.count
+
+    var frames: [SKTexture] = []
+
+    for i in 1...numImages {
+      let textureName = "normal_\(i)"
+      frames.append(animatedAtlas.textureNamed(textureName))
+    }
+    normalPlayerFrames = frames
+
+    let firstFrameTexture = normalPlayerFrames[0]
+    normalPlayer = SKSpriteNode(texture: firstFrameTexture)
+    normalPlayer.position = CGPoint(x: -55.0, y: 0.0)
+
+    player.addChild(normalPlayer)
+
+    normalPlayer.run(SKAction.repeatForever(
+      SKAction.animate(with: normalPlayerFrames,
+                       timePerFrame: 0.1,
+                       resize: false,
+                       restore: true)),
+                     withKey: "normalPlayer")
+
+    normalPlayer.isHidden = false
+  }
+
+  func buildTurboPlayerShip() {
+    let animatedAtlas = SKTextureAtlas(named: "PlayerTurbo")
     let numImages = animatedAtlas.textureNames.count
 
     var frames: [SKTexture] = []
@@ -209,20 +246,22 @@ private extension GameScene {
       let textureName = "turbo_\(i)"
       frames.append(animatedAtlas.textureNamed(textureName))
     }
-    turboFrames = frames
+    turboPlayerFrames = frames
 
-    let firstFrameTexture = turboFrames[0]
-    turbo = SKSpriteNode(texture: firstFrameTexture)
-    turbo.position = CGPoint(x: -50.0, y: 0.0)
+    let firstFrameTexture = turboPlayerFrames[0]
+    turboPlayer = SKSpriteNode(texture: firstFrameTexture)
+    turboPlayer.position = CGPoint(x: -65.0, y: 0.0)
 
-    player.addChild(turbo)
+    player.addChild(turboPlayer)
 
-    turbo.run(SKAction.repeatForever(
-      SKAction.animate(with: turboFrames,
+    turboPlayer.run(SKAction.repeatForever(
+      SKAction.animate(with: turboPlayerFrames,
                        timePerFrame: 0.1,
                        resize: false,
                        restore: true)),
-              withKey: "turbo")
+                    withKey: "playerTurbo")
+
+    turboPlayer.isHidden = true
   }
 
   func playerShoot(in touchLocation: CGPoint) {
