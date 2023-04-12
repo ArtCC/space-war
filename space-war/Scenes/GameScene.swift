@@ -32,7 +32,6 @@ class GameScene: SKScene {
 
   // MARK: - Properties
 
-  var enemy = SKSpriteNode(imageNamed: "img_enemy")
   var scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
   var normalPlayer = SKSpriteNode()
   var normalPlayerFrames: [SKTexture] = []
@@ -65,13 +64,14 @@ class GameScene: SKScene {
   override func didMove(to view: SKView) {
     createParallaxBackground()
     createScoreLabel()
-    createMenuMusic()
+    createMusicGame()
     createPlayer()
     createPlayerControls()
 
     setupPhysics()
 
     addAsteroidToScene()
+    addEnemyToScene()
   }
 
   override func update(_ currentTime: TimeInterval) {
@@ -110,8 +110,16 @@ class GameScene: SKScene {
     run(SKAction.repeatForever(
       SKAction.sequence([
         SKAction.run(createAsteroid),
-        SKAction.wait(forDuration: 3.0)
+        SKAction.wait(forDuration: 5.0)
       ])
     ))
   }
+
+  private func addEnemyToScene() {
+    run(SKAction.repeatForever(
+      SKAction.sequence([
+        SKAction.run(createEnemy),
+        SKAction.wait(forDuration: 2.5)
+      ])
+    ))  }
 }

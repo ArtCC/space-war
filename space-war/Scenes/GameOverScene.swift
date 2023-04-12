@@ -15,7 +15,7 @@ class GameOverScene: SKScene {
   private struct SceneTraits {
     // Duration
     static let wait: CGFloat = 3
-    static let animation: CGFloat = 3
+    static let animation: CGFloat = 0.3
 
     // Size
     static let fontSize: CGFloat = 40
