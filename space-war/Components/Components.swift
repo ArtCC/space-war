@@ -18,7 +18,6 @@ struct Components {
     background.zPosition = -1
     background.size = scene.frame.size
     background.position = CGPoint(x: scene.frame.midX, y: scene.frame.midY)
-    
     return background
   }
 }

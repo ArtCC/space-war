@@ -22,6 +22,6 @@ struct ScoreManager {
   }
 
   static func saveScore(_ score: Int) {
-    defaults.setValue(score, forKey: scoreKey)
+    score > getScore() ? defaults.setValue(score, forKey: scoreKey) : nil
   }
 }

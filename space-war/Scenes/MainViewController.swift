@@ -7,7 +7,6 @@
 
 import UIKit
 import SpriteKit
-import GameplayKit
 
 class MainViewController: UIViewController {
 
@@ -30,11 +29,11 @@ class MainViewController: UIViewController {
   private func createMainScene() {
     let scene = MainMenuScene(size: view.bounds.size)
 
-    let skView = self.view as! SKView
-    skView.presentScene(scene)
+    let skView = view as! SKView
     skView.ignoresSiblingOrder = true
     skView.showsFPS = false
     skView.showsNodeCount = false
     skView.isMultipleTouchEnabled = true
+    skView.presentScene(scene)
   }
 }

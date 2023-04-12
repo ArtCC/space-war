@@ -12,6 +12,15 @@ class GameOverScene: SKScene {
 
   // MARK: - Properties
 
+  private struct SceneTraits {
+    // Duration
+    static let wait: CGFloat = 3
+    static let animation: CGFloat = 3
+
+    // Size
+    static let fontSize: CGFloat = 40
+  }
+
   private var won = false
 
   // MARK: - Init
@@ -31,23 +40,33 @@ class GameOverScene: SKScene {
   override func didMove(to view: SKView) {
     addChild(Components.getDefaultBackground(for: self))
 
+    createTitleLabel()
+
+    routeToMainMenuScene()
+  }
+
+  // MARK: - Private
+
+  private func createTitleLabel() {
     let message = won ? "game.over.won".localized() : "game.over.lose".localized()
 
     let label = SKLabelNode(fontNamed: Constants.robotoRegularFont)
     label.text = message
-    label.fontSize = 40
+    label.fontSize = SceneTraits.fontSize
     label.fontColor = SKColor.white
     label.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
 
     addChild(label)
+  }
 
+  private func routeToMainMenuScene() {
     run(SKAction.sequence([
-      SKAction.wait(forDuration: 3.0),
+      SKAction.wait(forDuration: SceneTraits.wait),
       SKAction.run() { [weak self] in
         guard let self else {
           return
         }
-        let reveal = SKTransition.crossFade(withDuration: 0.5)
+        let reveal = SKTransition.crossFade(withDuration: SceneTraits.animation)
         let scene = MainMenuScene(size: size)
 
         self.view?.presentScene(scene, transition:reveal)

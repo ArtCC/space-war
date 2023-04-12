@@ -61,11 +61,10 @@ class MainMenuScene: SKScene {
     let titleLabel = SKLabelNode(fontNamed: Constants.robotoThinFont)
     titleLabel.text = "main.menu.title".localized()
     titleLabel.fontSize = SceneTraits.titleFontSize
-
     titleLabel.horizontalAlignmentMode = .left
     titleLabel.verticalAlignmentMode = .top
     titleLabel.position = CGPoint(x: SceneTraits.titleLabelLeading,
-                                  y: size.height - SceneTraits.titleLabelTop - titleLabel.frame.size.height / 2)
+                                  y: size.height - SceneTraits.titleLabelTop - titleLabel.frame.size.height / 2.0)
 
     addChild(titleLabel)
   }
@@ -74,7 +73,7 @@ class MainMenuScene: SKScene {
     let playLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
     playLabel.text = "main.menu.play.option.title".localized()
     playLabel.fontSize = SceneTraits.defaultFontSize
-    playLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
+    playLabel.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
     playLabel.name = MainMenuOption.game.rawValue
 
     addChild(playLabel)
@@ -85,7 +84,6 @@ class MainMenuScene: SKScene {
     let scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
     scoreLabel.text = String(format: "main.menu.score.title".localized(), score)
     scoreLabel.fontSize = SceneTraits.scoreFontSize
-
     scoreLabel.horizontalAlignmentMode = .right
     scoreLabel.verticalAlignmentMode = .top
     scoreLabel.position = CGPoint(x: size.width - SceneTraits.scoreLabelMargin,
