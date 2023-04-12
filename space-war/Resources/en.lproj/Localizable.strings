@@ -1,5 +1,5 @@
 "main.menu.title" = "Space War";
-"main.menu.play.option.title" = "Jugar";
-"main.menu.score.title" = "Puntuación: %@";
-"game.over.won" = "¡Has ganado! :)";
+"main.menu.play.option.title" = "Play";
+"main.menu.score.title" = "Score: %@";
+"game.over.won" = "You Won! :)";
 "game.over.lose" = "Game Over :[";
