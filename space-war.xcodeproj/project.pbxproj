@@ -30,6 +30,7 @@
 		809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC629E42614001AB601 /* Roboto-Regular.ttf */; };
 		809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC729E42614001AB601 /* Roboto-Thin.ttf */; };
 		809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECC29E42DAB001AB601 /* GameScene.swift */; };
+		80A2488A29E7515700F39F0D /* BossTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80A2488929E7515600F39F0D /* BossTurbo.atlas */; };
 		80B20E7529E74C0F0097F28E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B20E7429E74C0F0097F28E /* Constants.swift */; };
 		80B20E7A29E74F770097F28E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80B20E7C29E74F770097F28E /* Localizable.strings */; };
 		80F0DB7529E575F400F8782B /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F0DB7429E575F400F8782B /* GameOverScene.swift */; };
@@ -67,6 +68,7 @@
 		809E8EC629E42614001AB601 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		809E8EC729E42614001AB601 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		809E8ECC29E42DAB001AB601 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		80A2488929E7515600F39F0D /* BossTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BossTurbo.atlas; sourceTree = "<group>"; };
 		80B20E7429E74C0F0097F28E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		80B20E7B29E74F770097F28E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80B20E7D29E74F7F0097F28E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				80F0DB7A29E595C700F8782B /* PlayerExplosion.atlas */,
 				80210A7029E56EC6005FCB32 /* PlayerNormal.atlas */,
 				802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */,
+				80A2488929E7515600F39F0D /* BossTurbo.atlas */,
 			);
 			path = Textures;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				80F0DB7F29E59BA600F8782B /* enemy-explosion.wav in Resources */,
 				802DF9EB29E4D1EE003EC66D /* PlayerTurbo.atlas in Resources */,
 				809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */,
+				80A2488A29E7515700F39F0D /* BossTurbo.atlas in Resources */,
 				80B20E7A29E74F770097F28E /* Localizable.strings in Resources */,
 				809E8EBF29E422CA001AB601 /* space-game.wav in Resources */,
 				809E8EC329E422E9001AB601 /* menu.wav in Resources */,
