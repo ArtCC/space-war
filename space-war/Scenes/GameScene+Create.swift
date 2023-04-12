@@ -68,7 +68,7 @@ extension GameScene {
     player.physicsBody?.isDynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.player
     player.physicsBody?.contactTestBitMask = PhysicsCategory.enemy
-    player.physicsBody?.collisionBitMask = PhysicsCategory.enemy
+    player.physicsBody?.collisionBitMask = PhysicsCategory.all
     player.physicsBody?.usesPreciseCollisionDetection = true
 
     if let physicsBody = player.physicsBody {
@@ -98,15 +98,14 @@ extension GameScene {
 
     let angle = player.zRotation - CGFloat.pi * 2
     let direction = CGVector(dx: cos(angle), dy: sin(angle))
-    let bulletSpeed: CGFloat = 500.0
-    let bulletDistance: CGFloat = 1000.0
-    let bulletMove = SKAction.move(by: CGVector(dx: direction.dx * bulletDistance,
-                                                dy: direction.dy * bulletDistance),
-                                   duration: bulletDistance / bulletSpeed)
-    let bulletRemove = SKAction.removeFromParent()
-    let bulletAction = SKAction.sequence([bulletMove, bulletRemove])
+    let speed: CGFloat = 500.0
+    let distance: CGFloat = 750.0
+    let move = SKAction.move(by: CGVector(dx: direction.dx * distance, dy: direction.dy * distance),
+                             duration: distance / speed)
+    let remove = SKAction.removeFromParent()
+    let action = SKAction.sequence([move, remove])
 
-    projectile.run(bulletAction)
+    projectile.run(action)
 
     run(SKAction.playSoundFileNamed("short-laser-gun-shot.wav", waitForCompletion: false))
   }
@@ -242,12 +241,49 @@ extension GameScene {
 
     addChild(enemy)
 
-    let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+    let actualDuration = random(min: CGFloat(1.0), max: CGFloat(3.5))
     let actionMove = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: actualY),
                                    duration: TimeInterval(actualDuration))
     let actionMoveDone = SKAction.removeFromParent()
 
     enemy.run(SKAction.sequence([actionMove, actionMoveDone]))
+
+    createEnemyShot(for: enemy)
+
+    let shotDelay = SKAction.wait(forDuration: 1.0)
+    let shotAction = SKAction.run {
+      self.createEnemyShot(for: enemy)
+    }
+    let shotSequence = SKAction.sequence([shotDelay, shotAction])
+    let shotForever = SKAction.repeatForever(shotSequence)
+
+    enemy.run(shotForever)
+  }
+
+  func createEnemyShot(for enemy: SKSpriteNode) {
+    let projectile = SKSpriteNode(imageNamed: "img_enemy_shot")
+    projectile.position = CGPoint(x: enemy.position.x - 55.0, y: enemy.position.y)
+    projectile.zPosition = 1.0
+    projectile.setScale(1.5)
+    projectile.name = GameSceneNodes.enemyProjectile.rawValue
+    projectile.physicsBody = SKPhysicsBody(rectangleOf: projectile.size)
+    projectile.physicsBody?.categoryBitMask = PhysicsCategory.enemyProjectile
+    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.player
+    projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
+    projectile.physicsBody?.usesPreciseCollisionDetection = true
+
+    addChild(projectile)
+
+    let direction = CGVector(dx: -1.0, dy: 0.0)
+    let speed: CGFloat = 500.0
+    let distance: CGFloat = 750.0
+    let action = SKAction.move(by: CGVector(dx: direction.dx * distance, dy: direction.dy * distance),
+                               duration: distance / speed)
+    let remove = SKAction.removeFromParent()
+
+    projectile.run(SKAction.sequence([action, remove]))
+
+    run(SKAction.playSoundFileNamed("short-laser-gun-shot.wav", waitForCompletion: false))
   }
 
   func createTurboEnemyShip(for enemy: SKSpriteNode) {
@@ -322,7 +358,7 @@ extension GameScene {
     let repeatRotateAction = SKAction.repeatForever(rotateAction)
     asteroid.run(repeatRotateAction)
 
-    let actualDuration = random(min: CGFloat(1.0), max: CGFloat(3.0))
+    let actualDuration = random(min: CGFloat(1.0), max: CGFloat(2.5))
     let actionMove = SKAction.move(to: CGPoint(x: -asteroid.size.width / 2, y: actualY),
                                    duration: TimeInterval(actualDuration))
     let actionMoveDone = SKAction.removeFromParent()

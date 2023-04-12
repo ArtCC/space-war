@@ -12,7 +12,7 @@ import SpriteKit
 
 extension GameScene {
 
-  func projectileDidCollideWithEnemy(projectile: SKSpriteNode, enemy: SKSpriteNode) {
+  func projectileDidCollideWithEnemy(_ projectile: SKSpriteNode, _ enemy: SKSpriteNode) {
     if enemy.name == GameSceneNodes.asteroid.rawValue {
       createDefaultExplosion(in: enemy.position)
     } else if enemy.name == GameSceneNodes.enemy.rawValue {
@@ -34,7 +34,7 @@ extension GameScene {
     }
   }
 
-  func playerDidCollideWithEnemy(player: SKSpriteNode, enemy: SKSpriteNode) {
+  func playerDidCollideWithEnemy(_ player: SKSpriteNode, _ enemy: SKSpriteNode) {
     createPlayerExplosion(in: player.position) {
       let reveal = SKTransition.crossFade(withDuration: 0.5)
       let gameOverScene = GameOverScene(size: self.size, won: false)
@@ -44,5 +44,17 @@ extension GameScene {
 
     player.removeFromParent()
     enemy.removeFromParent()
+  }
+
+  func enemyProjectileDidCollideWithEnemy(_ enemyProjectile: SKSpriteNode, _ player: SKSpriteNode) {
+    createPlayerExplosion(in: enemyProjectile.position) {
+      let reveal = SKTransition.crossFade(withDuration: 0.5)
+      let gameOverScene = GameOverScene(size: self.size, won: false)
+
+      self.view?.presentScene(gameOverScene, transition: reveal)
+    }
+
+    enemyProjectile.removeFromParent()
+    player.removeFromParent()
   }
 }
