@@ -17,12 +17,18 @@ class MainMenuScene: SKScene {
   // MARK: - Properties
 
   private struct SceneTraits {
-    // Font
-    static let titleFontSize: CGFloat = 40
-    static let defaultFontSize: CGFloat = 30
+    // Margin
+    static let titleLabelTop: CGFloat = 15
+    static let titleLabelLeading: CGFloat = 50
+    static let scoreLabelMargin: CGFloat = 35
+
+    // Size
+    static let titleFontSize: CGFloat = 60
+    static let defaultFontSize: CGFloat = 45
+    static let scoreFontSize: CGFloat = 20
 
     // Animation
-    static let duration: CGFloat = 0.5
+    static let duration: CGFloat = 0.25
   }
 
   // MARK: - Lifecycle's functions
@@ -32,7 +38,11 @@ class MainMenuScene: SKScene {
 
     createTitleLabel()
     createPlayLabel()
+    createScoreLabel()
+    createMenuMusic()
   }
+
+  // MARK: - UITouch
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     for touch in touches {
@@ -48,28 +58,56 @@ class MainMenuScene: SKScene {
   // MARK: - Private
 
   private func createTitleLabel() {
-    let titleLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+    let titleLabel = SKLabelNode(fontNamed: Constants.robotoThinFont)
     titleLabel.text = "main.menu.title".localized()
     titleLabel.fontSize = SceneTraits.titleFontSize
-    titleLabel.position = CGPoint(x: size.width / 2, y: size.height / 2 + 75)
+    titleLabel.horizontalAlignmentMode = .left
+    titleLabel.verticalAlignmentMode = .top
+    titleLabel.position = CGPoint(x: SceneTraits.titleLabelLeading,
+                                  y: size.height - SceneTraits.titleLabelTop - titleLabel.frame.size.height / 2.0)
 
     addChild(titleLabel)
   }
 
   private func createPlayLabel() {
-    let playLabel = SKLabelNode(fontNamed: Constants.robotoThinFont)
+    let playLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
     playLabel.text = "main.menu.play.option.title".localized()
     playLabel.fontSize = SceneTraits.defaultFontSize
-    playLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
+    playLabel.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
     playLabel.name = MainMenuOption.game.rawValue
 
     addChild(playLabel)
   }
 
+  private func createScoreLabel() {
+    let score = String(ScoreManager.getScore())
+    let scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+    scoreLabel.text = String(format: "main.menu.score.title".localized(), score)
+    scoreLabel.fontSize = SceneTraits.scoreFontSize
+    scoreLabel.horizontalAlignmentMode = .right
+    scoreLabel.verticalAlignmentMode = .top
+    scoreLabel.position = CGPoint(x: size.width - SceneTraits.scoreLabelMargin,
+                                  y: size.height - SceneTraits.scoreLabelMargin)
+
+    addChild(scoreLabel)
+  }
+
+  private func createMenuMusic() {
+    let music = SKAudioNode(fileNamed: "menu.wav")
+    music.autoplayLooped = true
+    music.isPositional = false
+
+    addChild(music)
+
+    music.run(SKAction.play())
+  }
+
   private func routeToGameScene() {
+    run(SKAction.playSoundFileNamed("start-level.wav", waitForCompletion: false))
+
     let reveal = SKTransition.crossFade(withDuration: SceneTraits.duration)
     let gameScene = GameScene(size: self.size)
 
-    self.view?.presentScene(gameScene, transition: reveal)
+    view?.presentScene(gameScene, transition: reveal)
   }
 }
