@@ -41,13 +41,28 @@ class GameScene: SKScene {
   var velocityX: CGFloat = 0
   var velocityY: CGFloat = 0
   var joystickIsActive = false
-  var enemiesDestroyed = 0
+  var enemiesDestroyed = 0 {
+    didSet {
+      ScoreManager.saveScore(enemiesDestroyed)
+
+      scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
+    }
+  }
+  var bossIsActive = false {
+    didSet {
+      removeAction(forKey: addAsteroidActionKey)
+      removeAction(forKey: addEnemyActionKey)
+    }
+  }
 
   let player = SKSpriteNode(imageNamed: "img_ship")
   let joystickBase = SKSpriteNode(imageNamed: "img_base_joystick")
   let joystick = SKSpriteNode(imageNamed: "img_joystick")
   let firePad = SKSpriteNode(imageNamed: "img_joystick")
-  let scoreFontSize: CGFloat = 20
+  let scoreFontSize: CGFloat = 26
+
+  private let addAsteroidActionKey = "addAsteroidActionKey"
+  private let addEnemyActionKey = "addEnemyActionKey"
 
   // MARK: - Init
 
@@ -77,21 +92,10 @@ class GameScene: SKScene {
   override func update(_ currentTime: TimeInterval) {
     if joystickIsActive == true {
       player.position = CGPointMake(player.position.x - (velocityX * 3), player.position.y + (velocityY * 3))
-
-      normalPlayer.isHidden = true
-      turboPlayer.isHidden = false
-    } else {
-      normalPlayer.isHidden = false
-      turboPlayer.isHidden = true
     }
-  }
 
-  // MARK: - Public
-
-  func updateScore() {
-    ScoreManager.saveScore(enemiesDestroyed)
-
-    scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
+    normalPlayer.isHidden = joystickIsActive
+    turboPlayer.isHidden = !joystickIsActive
   }
 
   // MARK: - Private
@@ -112,7 +116,7 @@ class GameScene: SKScene {
         SKAction.run(createAsteroid),
         SKAction.wait(forDuration: 5.0)
       ])
-    ))
+    ), withKey: addAsteroidActionKey)
   }
 
   private func addEnemyToScene() {
@@ -121,5 +125,6 @@ class GameScene: SKScene {
         SKAction.run(createEnemy),
         SKAction.wait(forDuration: 2.5)
       ])
-    ))  }
+    ), withKey: addEnemyActionKey)
+  }
 }

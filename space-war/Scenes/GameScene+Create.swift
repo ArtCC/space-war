@@ -86,7 +86,7 @@ extension GameScene {
     projectile.name = GameSceneNodes.playerProjectile.rawValue
     projectile.position = CGPoint(x: player.position.x + 55.0, y: player.position.y)
     projectile.zPosition = 1.0
-    projectile.setScale(1.5)
+    projectile.setScale(2.0)
     projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
     projectile.physicsBody?.isDynamic = true
     projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
@@ -227,9 +227,9 @@ extension GameScene {
     let enemy = SKSpriteNode(imageNamed: "img_enemy")
     enemy.name = GameSceneNodes.enemy.rawValue
 
-    let actualY = random(min: enemy.size.height / 2, max: size.height - enemy.size.height / 2)
+    let randomY = CGFloat.random(in: enemy.size.height / 2...size.height - enemy.size.height / 2)
 
-    enemy.position = CGPoint(x: size.width + enemy.frame.width, y: actualY)
+    enemy.position = CGPoint(x: size.width + enemy.frame.width, y: randomY)
     enemy.zPosition = 1.0
     enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.frame.size)
     enemy.physicsBody?.categoryBitMask = PhysicsCategory.enemy
@@ -241,9 +241,10 @@ extension GameScene {
 
     addChild(enemy)
 
-    let actualDuration = random(min: CGFloat(1.0), max: CGFloat(3.5))
-    let actionMove = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: actualY),
+    let actualDuration = CGFloat.random(in: 1...5)
+    let actionMove = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: randomY),
                                    duration: TimeInterval(actualDuration))
+
     let actionMoveDone = SKAction.removeFromParent()
 
     enemy.run(SKAction.sequence([actionMove, actionMoveDone]))
@@ -275,10 +276,9 @@ extension GameScene {
     addChild(projectile)
 
     let direction = CGVector(dx: -1.0, dy: 0.0)
-    let speed: CGFloat = 500.0
     let distance: CGFloat = 750.0
     let action = SKAction.move(by: CGVector(dx: direction.dx * distance, dy: direction.dy * distance),
-                               duration: distance / speed)
+                               duration: 1.0)
     let remove = SKAction.removeFromParent()
 
     projectile.run(SKAction.sequence([action, remove]))
@@ -348,7 +348,7 @@ extension GameScene {
     asteroid.physicsBody?.collisionBitMask = PhysicsCategory.none
     asteroid.physicsBody?.usesPreciseCollisionDetection = true
 
-    let actualY = random(min: asteroid.size.height / 2, max: size.height - asteroid.size.height / 2)
+    let actualY = CGFloat.random(in: asteroid.size.height / 2...size.height - asteroid.size.height / 2)
 
     asteroid.position = CGPoint(x: size.width + asteroid.size.width / 2, y: actualY)
 
@@ -358,7 +358,7 @@ extension GameScene {
     let repeatRotateAction = SKAction.repeatForever(rotateAction)
     asteroid.run(repeatRotateAction)
 
-    let actualDuration = random(min: CGFloat(1.0), max: CGFloat(2.5))
+    let actualDuration = CGFloat.random(in: CGFloat(1.0)...CGFloat(2.5))
     let actionMove = SKAction.move(to: CGPoint(x: -asteroid.size.width / 2, y: actualY),
                                    duration: TimeInterval(actualDuration))
     let actionMoveDone = SKAction.removeFromParent()
@@ -372,7 +372,7 @@ extension GameScene {
 
     var explosion = SKSpriteNode()
     var frames: [SKTexture] = []
-
+    
     for i in 1...numImages {
       let textureName = "Explosion1_\(i)"
       frames.append(animatedAtlas.textureNamed(textureName))

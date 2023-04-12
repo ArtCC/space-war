@@ -24,13 +24,15 @@ extension GameScene {
 
     enemiesDestroyed += 1
 
-    updateScore()
+    if enemiesDestroyed > Constants.scoreForBoss {
+      bossIsActive = true
 
-    if enemiesDestroyed > 100 {
+#warning("Aquí sacamos al jefe final.")
+      /**
       let reveal = SKTransition.crossFade(withDuration: 0.5)
       let gameOverScene = GameOverScene(size: self.size, won: true)
 
-      view?.presentScene(gameOverScene, transition: reveal)
+      view?.presentScene(gameOverScene, transition: reveal)*/
     }
   }
 
