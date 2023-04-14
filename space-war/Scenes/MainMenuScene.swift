@@ -34,8 +34,7 @@ class MainMenuScene: SKScene {
   // MARK: - Lifecycle's functions
 
   override func didMove(to view: SKView) {
-    addChild(Components.getDefaultBackground(for: self))
-
+    createBackground()
     createTitleLabel()
     createPlayLabel()
     createScoreLabel()
@@ -57,8 +56,22 @@ class MainMenuScene: SKScene {
 
   // MARK: - Private
 
+  private func createBackground() {
+    guard let image = UIImage(named: Images.menuBackground),
+          let scene else {
+      return
+    }
+    let texture = SKTexture(image: image)
+    let background = Background(texture: texture,
+                                size: scene.frame.size,
+                                position: CGPoint(x: scene.frame.midX, y: scene.frame.midY),
+                                alpha: 0.4)
+
+    addChild(background)
+  }
+
   private func createTitleLabel() {
-    let titleLabel = SKLabelNode(fontNamed: Constants.robotoThinFont)
+    let titleLabel = SKLabelNode(fontNamed: Fonts.robotoThinFont)
     titleLabel.text = "main.menu.title".localized()
     titleLabel.fontSize = SceneTraits.titleFontSize
     titleLabel.horizontalAlignmentMode = .left
@@ -70,7 +83,7 @@ class MainMenuScene: SKScene {
   }
 
   private func createPlayLabel() {
-    let playLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+    let playLabel = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
     playLabel.text = "main.menu.play.option.title".localized()
     playLabel.fontSize = SceneTraits.defaultFontSize
     playLabel.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)
@@ -81,7 +94,7 @@ class MainMenuScene: SKScene {
 
   private func createScoreLabel() {
     let score = String(ScoreManager.getScore())
-    let scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+    let scoreLabel = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
     scoreLabel.text = String(format: "main.menu.score.title".localized(), score)
     scoreLabel.fontSize = SceneTraits.scoreFontSize
     scoreLabel.horizontalAlignmentMode = .right
@@ -93,7 +106,7 @@ class MainMenuScene: SKScene {
   }
 
   private func createMenuMusic() {
-    let music = SKAudioNode(fileNamed: "menu.wav")
+    let music = SKAudioNode(fileNamed: Music.menu)
     music.autoplayLooped = true
     music.isPositional = false
 
@@ -103,7 +116,7 @@ class MainMenuScene: SKScene {
   }
 
   private func routeToGameScene() {
-    run(SKAction.playSoundFileNamed("start-level.wav", waitForCompletion: false))
+    run(SKAction.playSoundFileNamed(Music.startGame, waitForCompletion: false))
 
     let reveal = SKTransition.crossFade(withDuration: SceneTraits.duration)
     let gameScene = GameScene(size: self.size)

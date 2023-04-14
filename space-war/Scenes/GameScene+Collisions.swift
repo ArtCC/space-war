@@ -13,48 +13,60 @@ import SpriteKit
 extension GameScene {
 
   func projectileDidCollideWithEnemy(_ projectile: SKSpriteNode, _ enemy: SKSpriteNode) {
-    if enemy.name == GameSceneNodes.asteroid.rawValue {
-      createDefaultExplosion(in: enemy.position)
-    } else if enemy.name == GameSceneNodes.enemy.rawValue {
-      createEnemyExplosion(in: enemy.position)
+    enemiesDestroyed += 1
+
+    let explosion = Explosion(size: enemy.size)
+
+    switch enemy.name {
+    case Nodes.asteroid.rawValue:
+      explosion.explosion(texture: Textures.explosion, music: Music.enemyExplosion, in: enemy.position)
+    case Nodes.boss.rawValue:
+      explosion.explosion(texture: Textures.bossExplosion, music: Music.enemyExplosion, in: enemy.position) {
+        self.endGame(isWin: true)
+      }
+    case Nodes.enemy.rawValue:
+      explosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
+    default:
+      break
     }
+
+    addChild(explosion)
 
     projectile.removeFromParent()
     enemy.removeFromParent()
-
-    enemiesDestroyed += 1
-
-    if enemiesDestroyed > Constants.scoreForBoss {
-      bossIsActive = true
-
-#warning("Aquí sacamos al jefe final.")
-      /**
-      let reveal = SKTransition.crossFade(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: true)
-
-      view?.presentScene(gameOverScene, transition: reveal)*/
-    }
   }
 
   func playerDidCollideWithEnemy(_ player: SKSpriteNode, _ enemy: SKSpriteNode) {
-    createPlayerExplosion(in: player.position) {
-      let reveal = SKTransition.crossFade(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
+    let enemyExplosion = Explosion(size: enemy.size)
 
-      self.view?.presentScene(gameOverScene, transition: reveal)
+    switch enemy.name {
+    case Nodes.boss.rawValue:
+      enemyExplosion.explosion(texture: Textures.bossExplosion, music: Music.enemyExplosion, in: enemy.position)
+    case Nodes.enemy.rawValue:
+      enemyExplosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
+    default:
+      break
     }
 
+    let playerExplosion = Explosion(size: player.size)
+    playerExplosion.explosion(texture: Textures.playerExplosion, music: Music.playerExplosion, in: player.position) {
+      self.endGame(isWin: false)
+    }
+
+    addChild(enemyExplosion)
+    addChild(playerExplosion)
+    
     player.removeFromParent()
     enemy.removeFromParent()
   }
 
-  func enemyProjectileDidCollideWithEnemy(_ enemyProjectile: SKSpriteNode, _ player: SKSpriteNode) {
-    createPlayerExplosion(in: enemyProjectile.position) {
-      let reveal = SKTransition.crossFade(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
-
-      self.view?.presentScene(gameOverScene, transition: reveal)
+  func enemyProjectileDidCollideWithPlayer(_ enemyProjectile: SKSpriteNode, _ player: SKSpriteNode) {
+    let explosion = Explosion(size: enemyProjectile.size)
+    explosion.explosion(texture: Textures.playerExplosion, music: Music.playerExplosion, in: player.position) {
+      self.endGame(isWin: false)
     }
+
+    addChild(explosion)
 
     enemyProjectile.removeFromParent()
     player.removeFromParent()

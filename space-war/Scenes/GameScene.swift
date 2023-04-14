@@ -8,61 +8,47 @@
 
 import SpriteKit
 
-enum GameSceneNodes: String {
-  case firePad
-  case joystick
-  case joystickBase
-  case player
-  case playerProjectile
-  case asteroid
-  case enemy
-  case enemyProjectile
-}
-
-struct PhysicsCategory {
-  static let none: UInt32 = 0
-  static let all: UInt32 = UInt32.max
-  static let enemy: UInt32 = 0b1
-  static let projectile: UInt32 = 0b10
-  static let player: UInt32 = 0b11
-  static let enemyProjectile: UInt32 = 0b100
-}
-
 class GameScene: SKScene {
 
   // MARK: - Properties
 
-  var scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
-  var normalPlayer = SKSpriteNode()
-  var normalPlayerFrames: [SKTexture] = []
-  var turboPlayer = SKSpriteNode()
-  var turboPlayerFrames: [SKTexture] = []
+  struct SceneTraits {
+    // Size
+    static let scoreFontSize: CGFloat = 26
+
+    // Score
+    static let scoreForBoss: Int = 15
+  }
+
+  var scoreLabel = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
+  var player = Player()
+  var playerVelocityX: CGFloat = 0
+  var playerVelocityY: CGFloat = 0
   var selectedNodes: [UITouch: SKSpriteNode] = [:]
-  var velocityX: CGFloat = 0
-  var velocityY: CGFloat = 0
   var joystickIsActive = false
   var enemiesDestroyed = 0 {
     didSet {
       ScoreManager.saveScore(enemiesDestroyed)
 
       scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
+
+      if enemiesDestroyed > SceneTraits.scoreForBoss {
+        createFinalBoss()
+
+        bossIsActive = true
+      }
     }
   }
   var bossIsActive = false {
     didSet {
-      removeAction(forKey: addAsteroidActionKey)
-      removeAction(forKey: addEnemyActionKey)
+      removeAction(forKey: Keys.addAsteroidActionKey)
+      removeAction(forKey: Keys.addEnemyActionKey)
     }
   }
 
-  let player = SKSpriteNode(imageNamed: "img_ship")
-  let joystickBase = SKSpriteNode(imageNamed: "img_base_joystick")
-  let joystick = SKSpriteNode(imageNamed: "img_joystick")
-  let firePad = SKSpriteNode(imageNamed: "img_joystick")
-  let scoreFontSize: CGFloat = 26
-
-  private let addAsteroidActionKey = "addAsteroidActionKey"
-  private let addEnemyActionKey = "addEnemyActionKey"
+  let joystickBase = SKSpriteNode(imageNamed: Images.joystickBase)
+  let joystick = SKSpriteNode(imageNamed: Images.joystick)
+  let firePad = SKSpriteNode(imageNamed: Images.joystick)
 
   // MARK: - Init
 
@@ -77,25 +63,35 @@ class GameScene: SKScene {
   // MARK: - Lifecycle's functions
 
   override func didMove(to view: SKView) {
+    setupPhysics()
+
     createParallaxBackground()
     createScoreLabel()
     createMusicGame()
     createPlayer()
     createPlayerControls()
 
-    setupPhysics()
-
-    addAsteroidToScene()
-    addEnemyToScene()
+    addAsteroids()
+    addEnemies()
   }
 
   override func update(_ currentTime: TimeInterval) {
     if joystickIsActive == true {
-      player.position = CGPointMake(player.position.x - (velocityX * 3), player.position.y + (velocityY * 3))
+      player.position = CGPointMake(player.position.x - (playerVelocityX * 3),
+                                    player.position.y + (playerVelocityY * 3))
     }
 
-    normalPlayer.isHidden = joystickIsActive
-    turboPlayer.isHidden = !joystickIsActive
+    player.normalEngineFireIsHidden(joystickIsActive)
+    player.turboEngineFireIsHidden(!joystickIsActive)
+  }
+
+  // MARK: - Public
+
+  func endGame(isWin: Bool) {
+    let reveal = SKTransition.crossFade(withDuration: 0.5)
+    let gameOverScene = GameOverScene(size: self.size, win: isWin)
+
+    view?.presentScene(gameOverScene, transition: reveal)
   }
 
   // MARK: - Private
@@ -110,21 +106,21 @@ class GameScene: SKScene {
                                                          frame.size.height))
   }
 
-  private func addAsteroidToScene() {
+  private func addAsteroids() {
     run(SKAction.repeatForever(
       SKAction.sequence([
         SKAction.run(createAsteroid),
         SKAction.wait(forDuration: 5.0)
       ])
-    ), withKey: addAsteroidActionKey)
+    ), withKey: Keys.addAsteroidActionKey)
   }
 
-  private func addEnemyToScene() {
+  private func addEnemies() {
     run(SKAction.repeatForever(
       SKAction.sequence([
         SKAction.run(createEnemy),
         SKAction.wait(forDuration: 2.5)
       ])
-    ), withKey: addEnemyActionKey)
+    ), withKey: Keys.addEnemyActionKey)
   }
 }

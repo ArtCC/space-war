@@ -12,16 +12,15 @@ struct ScoreManager {
 
   // MARK: - Properties
 
-  private static let scoreKey = "score.key"
   private static let defaults = UserDefaults.standard
 
   // MARK: - Public
 
   static func getScore() -> Int {
-    defaults.integer(forKey: scoreKey)
+    defaults.integer(forKey: Keys.scoreKey)
   }
 
   static func saveScore(_ score: Int) {
-    score > getScore() ? defaults.setValue(score, forKey: scoreKey) : nil
+    score > getScore() ? defaults.setValue(score, forKey: Keys.scoreKey) : nil
   }
 }

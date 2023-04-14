@@ -17,15 +17,15 @@ extension GameScene {
       let touchLocation = touch.location(in: self)
 
       if let node = atPoint(touchLocation) as? SKSpriteNode {
-        if node.name == GameSceneNodes.joystick.rawValue {
+        if node.name == Nodes.joystick.rawValue {
           if (CGRectContainsPoint(joystick.frame, touchLocation)) {
             joystickIsActive = true
           } else {
             joystickIsActive = false
           }
           selectedNodes[touch] = node
-        } else if node.name == GameSceneNodes.firePad.rawValue {
-          createPlayerShot(in: touchLocation)
+        } else if node.name == Nodes.firePad.rawValue {
+          playerShot()
         }
       }
     }
@@ -50,8 +50,8 @@ extension GameScene {
             joystick.position = CGPointMake(joystickBase.position.x - xDist, joystickBase.position.y + yDist)
           }
 
-          velocityX = xDist / 49.0
-          velocityY = yDist / 49.0
+          playerVelocityX = xDist / 49.0
+          playerVelocityY = yDist / 49.0
         }
 
         node.position = touchLocation
@@ -70,8 +70,8 @@ extension GameScene {
 
           joystickIsActive = false
 
-          velocityX = 0
-          velocityY = 0
+          playerVelocityX = 0
+          playerVelocityY = 0
         }
 
         selectedNodes[touch] = nil

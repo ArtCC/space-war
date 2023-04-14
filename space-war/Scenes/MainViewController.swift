@@ -5,7 +5,6 @@
 //  Created by Arturo Carretero Calvo on 10/4/23.
 //
 
-import UIKit
 import SpriteKit
 
 class MainViewController: UIViewController {
@@ -29,10 +28,10 @@ class MainViewController: UIViewController {
   private func createMainScene() {
     let scene = MainMenuScene(size: view.bounds.size)
 
-    let skView = view as! SKView
+    guard let skView = view as? SKView else {
+      return
+    }
     skView.ignoresSiblingOrder = true
-    skView.showsFPS = false
-    skView.showsNodeCount = false
     skView.isMultipleTouchEnabled = true
     skView.presentScene(scene)
   }
