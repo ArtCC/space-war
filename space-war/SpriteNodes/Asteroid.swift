@@ -25,7 +25,7 @@ class Asteroid: SKSpriteNode {
   // MARK: - Private
 
   private func setup(with position: CGPoint) {
-    zPosition = 3.0
+    zPosition = 1.0
 
     physicsBody = SKPhysicsBody(rectangleOf: size)
     physicsBody?.isDynamic = true
@@ -41,11 +41,11 @@ class Asteroid: SKSpriteNode {
   private func rotate() {
     let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 2.0)
     let repeatRotateAction = SKAction.repeatForever(rotateAction)
+    
     run(repeatRotateAction)
 
-    let actualDuration = CGFloat.random(in: CGFloat(1.0)...CGFloat(2.5))
-    let actionMove = SKAction.move(to: CGPoint(x: -size.width / 2, y: position.y),
-                                   duration: TimeInterval(actualDuration))
+    let duration = CGFloat.random(in: CGFloat(3.0)...CGFloat(5.0))
+    let actionMove = SKAction.move(to: CGPoint(x: -size.width / 2, y: position.y), duration: TimeInterval(duration))
     let actionMoveDone = SKAction.removeFromParent()
 
     run(SKAction.sequence([actionMove, actionMoveDone]))

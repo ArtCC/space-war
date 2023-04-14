@@ -21,16 +21,16 @@ class GameOverScene: SKScene {
     static let fontSize: CGFloat = 40
   }
 
-  private var won = false
+  private var win = false
 
   // MARK: - Init
   
-  init(size: CGSize, won: Bool) {
+  init(size: CGSize, win: Bool) {
     super.init(size: size)
 
-    self.won = won
+    self.win = win
   }
-
+  
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -61,7 +61,7 @@ class GameOverScene: SKScene {
   }
 
   private func createTitleLabel() {
-    let text = won ? "game.over.won".localized() : "game.over.lose".localized()
+    let text = win ? "game.over.win".localized() : "game.over.lose".localized()
     let label = SKLabelNode(fontNamed: Constants.robotoRegularFont)
     label.text = text
     label.fontSize = SceneTraits.fontSize

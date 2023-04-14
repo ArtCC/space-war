@@ -25,7 +25,7 @@ extension GameScene {
           }
           selectedNodes[touch] = node
         } else if node.name == GameSceneNodes.firePad.rawValue {
-          createPlayerShot(in: touchLocation)
+          player.shot()
         }
       }
     }
@@ -50,8 +50,8 @@ extension GameScene {
             joystick.position = CGPointMake(joystickBase.position.x - xDist, joystickBase.position.y + yDist)
           }
 
-          velocityX = xDist / 49.0
-          velocityY = yDist / 49.0
+          playerVelocityX = xDist / 49.0
+          playerVelocityY = yDist / 49.0
         }
 
         node.position = touchLocation
@@ -70,8 +70,8 @@ extension GameScene {
 
           joystickIsActive = false
 
-          velocityX = 0
-          velocityY = 0
+          playerVelocityX = 0
+          playerVelocityY = 0
         }
 
         selectedNodes[touch] = nil

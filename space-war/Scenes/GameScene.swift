@@ -20,12 +20,12 @@ enum GameSceneNodes: String {
 }
 
 struct PhysicsCategory {
+  static let all: UInt32 = UInt32.max
   static let none: UInt32 = 0
   static let enemy: UInt32 = 0b1
   static let projectile: UInt32 = 0b10
   static let player: UInt32 = 0b11
   static let enemyProjectile: UInt32 = 0b100
-  static let all: UInt32 = UInt32.max
 }
 
 class GameScene: SKScene {
@@ -33,21 +33,22 @@ class GameScene: SKScene {
   // MARK: - Properties
 
   struct SceneTraits {
+    // Keys
+    static let addAsteroidActionKey = "addAsteroidActionKey"
+    static let addEnemyActionKey = "addEnemyActionKey"
+
     // Size
     static let scoreFontSize: CGFloat = 26
 
     // Score
-    static let scoreForBoss: Int = 10
+    static let scoreForBoss: Int = 15
   }
 
   var scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
-  var normalPlayer = SKSpriteNode()
-  var normalPlayerFrames: [SKTexture] = []
-  var turboPlayer = SKSpriteNode()
-  var turboPlayerFrames: [SKTexture] = []
+  var player = Player()
+  var playerVelocityX: CGFloat = 0
+  var playerVelocityY: CGFloat = 0
   var selectedNodes: [UITouch: SKSpriteNode] = [:]
-  var velocityX: CGFloat = 0
-  var velocityY: CGFloat = 0
   var joystickIsActive = false
   var enemiesDestroyed = 0 {
     didSet {
@@ -58,18 +59,14 @@ class GameScene: SKScene {
   }
   var bossIsActive = false {
     didSet {
-      removeAction(forKey: addAsteroidActionKey)
-      removeAction(forKey: addEnemyActionKey)
+      removeAction(forKey: SceneTraits.addAsteroidActionKey)
+      removeAction(forKey: SceneTraits.addEnemyActionKey)
     }
   }
 
-  let player = SKSpriteNode(imageNamed: "img_ship")
   let joystickBase = SKSpriteNode(imageNamed: "img_base_joystick")
   let joystick = SKSpriteNode(imageNamed: "img_joystick")
   let firePad = SKSpriteNode(imageNamed: "img_joystick")
-
-  private let addAsteroidActionKey = "addAsteroidActionKey"
-  private let addEnemyActionKey = "addEnemyActionKey"
 
   // MARK: - Init
 
@@ -98,11 +95,21 @@ class GameScene: SKScene {
 
   override func update(_ currentTime: TimeInterval) {
     if joystickIsActive == true {
-      player.position = CGPointMake(player.position.x - (velocityX * 3), player.position.y + (velocityY * 3))
+      player.position = CGPointMake(player.position.x - (playerVelocityX * 3),
+                                    player.position.y + (playerVelocityY * 3))
     }
 
-    normalPlayer.isHidden = joystickIsActive
-    turboPlayer.isHidden = !joystickIsActive
+    player.normalEngineFireIsHidden(joystickIsActive)
+    player.turboEngineFireIsHidden(!joystickIsActive)
+  }
+
+  // MARK: - Public
+
+  func endGame(isWin: Bool) {
+    let reveal = SKTransition.crossFade(withDuration: 0.5)
+    let gameOverScene = GameOverScene(size: self.size, win: isWin)
+
+    view?.presentScene(gameOverScene, transition: reveal)
   }
 
   // MARK: - Private
@@ -123,7 +130,7 @@ class GameScene: SKScene {
         SKAction.run(createAsteroid),
         SKAction.wait(forDuration: 5.0)
       ])
-    ), withKey: addAsteroidActionKey)
+    ), withKey: SceneTraits.addAsteroidActionKey)
   }
 
   private func addEnemyToScene() {
@@ -132,6 +139,6 @@ class GameScene: SKScene {
         SKAction.run(createEnemy),
         SKAction.wait(forDuration: 2.5)
       ])
-    ), withKey: addEnemyActionKey)
+    ), withKey: SceneTraits.addEnemyActionKey)
   }
 }

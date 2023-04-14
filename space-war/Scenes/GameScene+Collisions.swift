@@ -13,14 +13,18 @@ import SpriteKit
 extension GameScene {
 
   func projectileDidCollideWithEnemy(_ projectile: SKSpriteNode, _ enemy: SKSpriteNode) {
+    let explosion = Explosion(size: enemy.size)
+
     switch enemy.name {
     case GameSceneNodes.asteroid.rawValue:
-      createDefaultExplosion(in: enemy.position)
+      explosion.explosion(texture: "Explosion", music: "enemy-explosion.wav", in: enemy.position)
     case GameSceneNodes.enemy.rawValue:
-      createEnemyExplosion(in: enemy.position)
+      explosion.explosion(texture: "EnemyExplosion", music: "enemy-explosion.wav", in: enemy.position)
     default:
       break
     }
+
+    addChild(explosion)
 
     projectile.removeFromParent()
     enemy.removeFromParent()
@@ -31,28 +35,34 @@ extension GameScene {
       bossIsActive = true
 
 #warning("Aquí sacamos al jefe final.")
+
+      endGame(isWin: true)
     }
   }
 
   func playerDidCollideWithEnemy(_ player: SKSpriteNode, _ enemy: SKSpriteNode) {
-    createPlayerExplosion(in: player.position) {
-      let reveal = SKTransition.crossFade(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
+    let enemyExplosion = Explosion(size: enemy.size)
+    enemyExplosion.explosion(texture: "EnemyExplosion", music: "enemy-explosion.wav", in: enemy.position)
 
-      self.view?.presentScene(gameOverScene, transition: reveal)
+    let playerExplosion = Explosion(size: player.size)
+    playerExplosion.explosion(texture: "PlayerExplosion", music: "player-explosion.wav", in: player.position) {
+      self.endGame(isWin: false)
     }
 
+    addChild(enemyExplosion)
+    addChild(playerExplosion)
+    
     player.removeFromParent()
     enemy.removeFromParent()
   }
 
   func enemyProjectileDidCollideWithEnemy(_ enemyProjectile: SKSpriteNode, _ player: SKSpriteNode) {
-    createPlayerExplosion(in: enemyProjectile.position) {
-      let reveal = SKTransition.crossFade(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
-
-      self.view?.presentScene(gameOverScene, transition: reveal)
+    let explosion = Explosion(size: enemyProjectile.size)
+    explosion.explosion(texture: "PlayerExplosion", music: "player-explosion.wav", in: enemyProjectile.position) {
+      self.endGame(isWin: false)
     }
+
+    addChild(explosion)
 
     enemyProjectile.removeFromParent()
     player.removeFromParent()
