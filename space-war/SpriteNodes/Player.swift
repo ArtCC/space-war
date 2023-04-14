@@ -108,6 +108,7 @@ class Player: SKSpriteNode {
       let textureName = String(format: Textures.image, i)
       frames.append(animatedAtlas.textureNamed(textureName))
     }
+    
     normalEngineFrames = frames
 
     let firstFrameTexture = normalEngineFrames[0]
@@ -117,10 +118,7 @@ class Player: SKSpriteNode {
     addChild(normalEngineNode)
 
     normalEngineNode.run(SKAction.repeatForever(
-      SKAction.animate(with: normalEngineFrames,
-                       timePerFrame: 0.1,
-                       resize: false,
-                       restore: true)),
+      SKAction.animate(with: normalEngineFrames, timePerFrame: 0.1, resize: false, restore: true)),
                          withKey: Textures.playerNormalEngine)
 
     normalEngineNode.isHidden = true
@@ -136,6 +134,7 @@ class Player: SKSpriteNode {
       let textureName = String(format: Textures.image, i)
       frames.append(animatedAtlas.textureNamed(textureName))
     }
+    
     turboEngineFrames = frames
 
     let firstFrameTexture = turboEngineFrames[0]
@@ -145,10 +144,7 @@ class Player: SKSpriteNode {
     addChild(turboEngineNode)
 
     turboEngineNode.run(SKAction.repeatForever(
-      SKAction.animate(with: turboEngineFrames,
-                       timePerFrame: 0.1,
-                       resize: false,
-                       restore: true)),
+      SKAction.animate(with: turboEngineFrames, timePerFrame: 0.1, resize: false, restore: true)),
                         withKey: Textures.playerTurboEngine)
 
     turboEngineNode.isHidden = true

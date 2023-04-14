@@ -18,6 +18,8 @@ extension GameScene {
     switch enemy.name {
     case GameSceneNodes.asteroid.rawValue:
       explosion.explosion(texture: Textures.explosion, music: Music.enemyExplosion, in: enemy.position)
+    case GameSceneNodes.boss.rawValue:
+      explosion.explosion(texture: Textures.bossExplosion, music: Music.enemyExplosion, in: enemy.position)
     case GameSceneNodes.enemy.rawValue:
       explosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
     default:
@@ -34,15 +36,21 @@ extension GameScene {
     if enemiesDestroyed > SceneTraits.scoreForBoss {
       bossIsActive = true
 
-#warning("Aquí sacamos al jefe final.")
-
-      endGame(isWin: true)
+      createFinalBoss()
     }
   }
 
   func playerDidCollideWithEnemy(_ player: SKSpriteNode, _ enemy: SKSpriteNode) {
     let enemyExplosion = Explosion(size: enemy.size)
-    enemyExplosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
+
+    switch enemy.name {
+    case GameSceneNodes.boss.rawValue:
+      enemyExplosion.explosion(texture: Textures.bossExplosion, music: Music.enemyExplosion, in: enemy.position)
+    case GameSceneNodes.enemy.rawValue:
+      enemyExplosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
+    default:
+      break
+    }
 
     let playerExplosion = Explosion(size: player.size)
     playerExplosion.explosion(texture: Textures.playerExplosion, music: Music.playerExplosion, in: player.position) {

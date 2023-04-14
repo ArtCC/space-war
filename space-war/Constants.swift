@@ -15,6 +15,8 @@ struct Fonts {
 
 struct Images {
   static let asteroids = "img_asteroids"
+  static let boss = "img_boss"
+  static let bossShot = "img_boss_shot"
   static let enemy = "img_enemy"
   static let enemyShot = "img_enemy_shot"
   static let gameBackground = "img_background_game"
@@ -41,6 +43,8 @@ struct Music {
 }
 
 struct Textures {
+  static let bossExplosion = "BossExplosion"
+  static let bossTurboEngine = "BossTurbo"
   static let enemyTurboEngine = "EnemyTurbo"
   static let explosion = "Explosion"
   static let enemyExplosion = "EnemyExplosion"

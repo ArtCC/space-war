@@ -8,25 +8,7 @@
 
 import SpriteKit
 
-class Boss: SKSpriteNode {
+class Boss: Enemy {
 
-  // MARK: - Init
-
-  init(texture: SKTexture, position: CGPoint) {
-    super.init(texture: texture, color: .clear, size: texture.size())
-
-    setup(with: position)
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
-
-  // MARK: - Private
-
-  private func setup(with position: CGPoint) {
-    zPosition = 1.0
-
-    self.position = position
-  }
+  // MARK: - Override functions
 }

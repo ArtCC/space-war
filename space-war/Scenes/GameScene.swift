@@ -10,6 +10,7 @@ import SpriteKit
 
 enum GameSceneNodes: String {
   case asteroid
+  case boss
   case enemy
   case enemyProjectile
   case firePad
@@ -80,13 +81,14 @@ class GameScene: SKScene {
     createParallaxBackground()
     createScoreLabel()
     createMusicGame()
-    createPlayer()
+    // createPlayer()
     createPlayerControls()
 
     setupPhysics()
 
     addAsteroidToScene()
     addEnemyToScene()
+    createFinalBoss()
   }
 
   override func update(_ currentTime: TimeInterval) {

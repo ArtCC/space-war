@@ -35,6 +35,7 @@
 		809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECC29E42DAB001AB601 /* GameScene.swift */; };
 		80A2488A29E7515700F39F0D /* BossTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80A2488929E7515600F39F0D /* BossTurbo.atlas */; };
 		80A36ACF29E98653006FF763 /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A36ACE29E98653006FF763 /* Boss.swift */; };
+		80A36AD129E99AE7006FF763 /* BossExplosion.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80A36AD029E99AE7006FF763 /* BossExplosion.atlas */; };
 		80B20E7529E74C0F0097F28E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B20E7429E74C0F0097F28E /* Constants.swift */; };
 		80B20E7A29E74F770097F28E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80B20E7C29E74F770097F28E /* Localizable.strings */; };
 		80F0DB7529E575F400F8782B /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F0DB7429E575F400F8782B /* GameOverScene.swift */; };
@@ -77,6 +78,7 @@
 		809E8ECC29E42DAB001AB601 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		80A2488929E7515600F39F0D /* BossTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BossTurbo.atlas; sourceTree = "<group>"; };
 		80A36ACE29E98653006FF763 /* Boss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boss.swift; sourceTree = "<group>"; };
+		80A36AD029E99AE7006FF763 /* BossExplosion.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BossExplosion.atlas; sourceTree = "<group>"; };
 		80B20E7429E74C0F0097F28E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		80B20E7B29E74F770097F28E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80B20E7D29E74F7F0097F28E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		802DF9E929E4D1E5003EC66D /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				80A36AD029E99AE7006FF763 /* BossExplosion.atlas */,
 				80A2488929E7515600F39F0D /* BossTurbo.atlas */,
 				80F0DB7629E595BE00F8782B /* EnemyExplosion.atlas */,
 				80210A7229E57195005FCB32 /* EnemyTurbo.atlas */,
@@ -311,6 +314,7 @@
 				802DF9EB29E4D1EE003EC66D /* PlayerTurbo.atlas in Resources */,
 				809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */,
 				80A2488A29E7515700F39F0D /* BossTurbo.atlas in Resources */,
+				80A36AD129E99AE7006FF763 /* BossExplosion.atlas in Resources */,
 				80B20E7A29E74F770097F28E /* Localizable.strings in Resources */,
 				809E8EBF29E422CA001AB601 /* space-game.wav in Resources */,
 				809E8EC329E422E9001AB601 /* menu.wav in Resources */,

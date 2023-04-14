@@ -68,15 +68,15 @@ extension GameScene {
     joystick.name = GameSceneNodes.joystick.rawValue
     joystick.position = joystickBase.position
     joystick.zPosition = 6.0
-    joystick.alpha = 0.3
-    joystick.setScale(0.15)
+    joystick.alpha = 0.5
+    joystick.setScale(0.20)
 
     firePad.anchorPoint = CGPoint(x: 1.0, y: 0.0)
     firePad.name = GameSceneNodes.firePad.rawValue
     firePad.position = CGPoint(x: size.width - 75.0, y: size.height / 8)
     firePad.zPosition = 6.0
-    firePad.alpha = 0.3
-    firePad.setScale(0.25)
+    firePad.alpha = 0.5
+    firePad.setScale(0.20)
 
     addChild(joystickBase)
     addChild(joystick)
@@ -109,7 +109,28 @@ extension GameScene {
     enemy.name = GameSceneNodes.enemy.rawValue
     enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
 
-    enemy.fire()
+    enemy.addTurboEngineFire(with: Textures.enemyTurboEngine)
+    enemy.movement()
+    enemy.fire(with: Images.enemyShot)
+
+    addChild(enemy)
+  }
+
+  func createFinalBoss() {
+    guard let image = UIImage(named: Images.boss) else {
+      return
+    }
+    let texture = SKTexture(image: image)
+    let enemy = Enemy(texture: texture)
+    let randomY = CGFloat.random(in: enemy.size.height / 2...size.height - enemy.size.height / 2)
+
+    enemy.name = GameSceneNodes.boss.rawValue
+    enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
+    enemy.setScale(1.5)
+    
+    enemy.addTurboEngineFire(with: Textures.bossTurboEngine)
+    enemy.movement()
+    enemy.fire(with: Images.bossShot)
 
     addChild(enemy)
   }
