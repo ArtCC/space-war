@@ -13,10 +13,13 @@ import SpriteKit
 extension GameScene {
 
   func projectileDidCollideWithEnemy(_ projectile: SKSpriteNode, _ enemy: SKSpriteNode) {
-    if enemy.name == GameSceneNodes.asteroid.rawValue {
+    switch enemy.name {
+    case GameSceneNodes.asteroid.rawValue:
       createDefaultExplosion(in: enemy.position)
-    } else if enemy.name == GameSceneNodes.enemy.rawValue {
+    case GameSceneNodes.enemy.rawValue:
       createEnemyExplosion(in: enemy.position)
+    default:
+      break
     }
 
     projectile.removeFromParent()
@@ -24,15 +27,10 @@ extension GameScene {
 
     enemiesDestroyed += 1
 
-    if enemiesDestroyed > Constants.scoreForBoss {
+    if enemiesDestroyed > SceneTraits.scoreForBoss {
       bossIsActive = true
 
 #warning("Aquí sacamos al jefe final.")
-      /**
-      let reveal = SKTransition.crossFade(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: true)
-
-      view?.presentScene(gameOverScene, transition: reveal)*/
     }
   }
 

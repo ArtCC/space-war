@@ -10,9 +10,11 @@
 		80210A7129E56EC6005FCB32 /* PlayerNormal.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80210A7029E56EC6005FCB32 /* PlayerNormal.atlas */; };
 		80210A7329E57195005FCB32 /* EnemyTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80210A7229E57195005FCB32 /* EnemyTurbo.atlas */; };
 		802C22CA29E44B1E0038841E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C929E44B1E0038841E /* String.swift */; };
-		802C22CC29E450EF0038841E /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22CB29E450EF0038841E /* Components.swift */; };
 		802DF9EB29E4D1EE003EC66D /* PlayerTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */; };
 		804188CA29E5BBF80026E88E /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804188C929E5BBF80026E88E /* CGPoint.swift */; };
+		804CB7B229E945F100051684 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804CB7B129E945F100051684 /* Background.swift */; };
+		804CB7B629E9517E00051684 /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804CB7B529E9517E00051684 /* Asteroid.swift */; };
+		804CB7B829E9581500051684 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804CB7B729E9581500051684 /* Player.swift */; };
 		80731ACA29E69C7900B6BBF7 /* GameScene+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731AC929E69C7900B6BBF7 /* GameScene+Create.swift */; };
 		80731ACC29E69D3F00B6BBF7 /* GameScene+UITouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731ACB29E69D3F00B6BBF7 /* GameScene+UITouch.swift */; };
 		80731ACE29E69E5B00B6BBF7 /* GameScene+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80731ACD29E69E5B00B6BBF7 /* GameScene+Delegates.swift */; };
@@ -46,9 +48,11 @@
 		80210A7029E56EC6005FCB32 /* PlayerNormal.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerNormal.atlas; sourceTree = "<group>"; };
 		80210A7229E57195005FCB32 /* EnemyTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = EnemyTurbo.atlas; sourceTree = "<group>"; };
 		802C22C929E44B1E0038841E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		802C22CB29E450EF0038841E /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerTurbo.atlas; sourceTree = "<group>"; };
 		804188C929E5BBF80026E88E /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
+		804CB7B129E945F100051684 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		804CB7B529E9517E00051684 /* Asteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
+		804CB7B729E9581500051684 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		80731AC929E69C7900B6BBF7 /* GameScene+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+Create.swift"; sourceTree = "<group>"; };
 		80731ACB29E69D3F00B6BBF7 /* GameScene+UITouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+UITouch.swift"; sourceTree = "<group>"; };
 		80731ACD29E69E5B00B6BBF7 /* GameScene+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+Delegates.swift"; sourceTree = "<group>"; };
@@ -96,12 +100,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		80210A6F29E56A60005FCB32 /* Components */ = {
+		80210A6F29E56A60005FCB32 /* SpriteNodes */ = {
 			isa = PBXGroup;
 			children = (
-				802C22CB29E450EF0038841E /* Components.swift */,
+				804CB7B529E9517E00051684 /* Asteroid.swift */,
+				804CB7B129E945F100051684 /* Background.swift */,
+				804CB7B729E9581500051684 /* Player.swift */,
 			);
-			path = Components;
+			path = SpriteNodes;
 			sourceTree = "<group>";
 		};
 		802C22C029E44A260038841E /* Extensions */ = {
@@ -148,11 +154,11 @@
 			children = (
 				809E8EA129E42026001AB601 /* AppDelegate.swift */,
 				80B20E7429E74C0F0097F28E /* Constants.swift */,
-				80210A6F29E56A60005FCB32 /* Components */,
 				80F0DB8029E59DC400F8782B /* Managers */,
 				802C22C029E44A260038841E /* Extensions */,
 				809E8EBA29E422A4001AB601 /* Resources */,
 				809E8ECA29E426AB001AB601 /* Scenes */,
+				80210A6F29E56A60005FCB32 /* SpriteNodes */,
 				809E8ECB29E4270C001AB601 /* UI */,
 			);
 			path = "space-war";
@@ -318,16 +324,18 @@
 				809E8EB929E4211A001AB601 /* MainMenuScene.swift in Sources */,
 				80F0DB7529E575F400F8782B /* GameOverScene.swift in Sources */,
 				80F0DB8229E59DCF00F8782B /* ScoreManager.swift in Sources */,
+				804CB7B629E9517E00051684 /* Asteroid.swift in Sources */,
 				802C22CA29E44B1E0038841E /* String.swift in Sources */,
 				80B20E7529E74C0F0097F28E /* Constants.swift in Sources */,
 				80731AD029E69EBF00B6BBF7 /* GameScene+Collisions.swift in Sources */,
 				809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */,
+				804CB7B829E9581500051684 /* Player.swift in Sources */,
 				80731ACC29E69D3F00B6BBF7 /* GameScene+UITouch.swift in Sources */,
 				80731ACE29E69E5B00B6BBF7 /* GameScene+Delegates.swift in Sources */,
 				809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */,
-				802C22CC29E450EF0038841E /* Components.swift in Sources */,
 				804188CA29E5BBF80026E88E /* CGPoint.swift in Sources */,
 				80731ACA29E69C7900B6BBF7 /* GameScene+Create.swift in Sources */,
+				804CB7B229E945F100051684 /* Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,28 +9,36 @@
 import SpriteKit
 
 enum GameSceneNodes: String {
+  case asteroid
+  case enemy
+  case enemyProjectile
   case firePad
   case joystick
   case joystickBase
   case player
   case playerProjectile
-  case asteroid
-  case enemy
-  case enemyProjectile
 }
 
 struct PhysicsCategory {
   static let none: UInt32 = 0
-  static let all: UInt32 = UInt32.max
   static let enemy: UInt32 = 0b1
   static let projectile: UInt32 = 0b10
   static let player: UInt32 = 0b11
   static let enemyProjectile: UInt32 = 0b100
+  static let all: UInt32 = UInt32.max
 }
 
 class GameScene: SKScene {
 
   // MARK: - Properties
+
+  struct SceneTraits {
+    // Size
+    static let scoreFontSize: CGFloat = 26
+
+    // Score
+    static let scoreForBoss: Int = 10
+  }
 
   var scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
   var normalPlayer = SKSpriteNode()
@@ -59,7 +67,6 @@ class GameScene: SKScene {
   let joystickBase = SKSpriteNode(imageNamed: "img_base_joystick")
   let joystick = SKSpriteNode(imageNamed: "img_joystick")
   let firePad = SKSpriteNode(imageNamed: "img_joystick")
-  let scoreFontSize: CGFloat = 26
 
   private let addAsteroidActionKey = "addAsteroidActionKey"
   private let addEnemyActionKey = "addEnemyActionKey"

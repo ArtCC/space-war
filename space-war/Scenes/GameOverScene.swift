@@ -38,20 +38,32 @@ class GameOverScene: SKScene {
   // MARK: - Lifecycle's functions
 
   override func didMove(to view: SKView) {
-    addChild(Components.getDefaultBackground(for: self))
-
+    createBackground()
     createTitleLabel()
 
     routeToMainMenuScene()
   }
 
   // MARK: - Private
+  
+  private func createBackground() {
+    guard let image = UIImage(named: "img_menu_background"),
+          let scene else {
+      return
+    }
+    let texture = SKTexture(image: image)
+    let background = Background(texture: texture,
+                                size: scene.frame.size,
+                                position: CGPoint(x: scene.frame.midX, y: scene.frame.midY),
+                                alpha: 0.4)
+
+    addChild(background)
+  }
 
   private func createTitleLabel() {
-    let message = won ? "game.over.won".localized() : "game.over.lose".localized()
-
+    let text = won ? "game.over.won".localized() : "game.over.lose".localized()
     let label = SKLabelNode(fontNamed: Constants.robotoRegularFont)
-    label.text = message
+    label.text = text
     label.fontSize = SceneTraits.fontSize
     label.fontColor = SKColor.white
     label.position = CGPoint(x: size.width / 2.0, y: size.height / 2.0)

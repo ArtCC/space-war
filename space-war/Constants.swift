@@ -11,5 +11,4 @@ import Foundation
 struct Constants {
   static let robotoRegularFont = "Roboto-Regular"
   static let robotoThinFont = "Roboto-Thin"
-  static let scoreForBoss: Int = 15
 }

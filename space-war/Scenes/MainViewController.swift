@@ -5,7 +5,6 @@
 //  Created by Arturo Carretero Calvo on 10/4/23.
 //
 
-import UIKit
 import SpriteKit
 
 class MainViewController: UIViewController {

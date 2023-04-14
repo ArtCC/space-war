@@ -34,8 +34,7 @@ class MainMenuScene: SKScene {
   // MARK: - Lifecycle's functions
 
   override func didMove(to view: SKView) {
-    addChild(Components.getDefaultBackground(for: self))
-
+    createBackground()
     createTitleLabel()
     createPlayLabel()
     createScoreLabel()
@@ -56,6 +55,20 @@ class MainMenuScene: SKScene {
   }
 
   // MARK: - Private
+
+  private func createBackground() {
+    guard let image = UIImage(named: "img_menu_background"),
+          let scene else {
+      return
+    }
+    let texture = SKTexture(image: image)
+    let background = Background(texture: texture,
+                                size: scene.frame.size,
+                                position: CGPoint(x: scene.frame.midX, y: scene.frame.midY),
+                                alpha: 0.4)
+
+    addChild(background)
+  }
 
   private func createTitleLabel() {
     let titleLabel = SKLabelNode(fontNamed: Constants.robotoThinFont)

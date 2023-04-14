@@ -15,22 +15,16 @@ extension GameScene {
   // MARK: - Background
 
   func createParallaxBackground() {
-    let backgroundTexture = SKTexture(imageNamed: "img_background_game")
+    let texture = SKTexture(imageNamed: "img_background_game")
 
     for i in 0...1 {
-      let background = SKSpriteNode(texture: backgroundTexture)
-      background.zPosition = -30
+      let position = CGPoint(x: (texture.size().width * CGFloat(i)) - CGFloat(1 * i), y: 0.0)
+      let background = Background(texture: texture, size: texture.size(), position: position, alpha: 1.0)
       background.anchorPoint = CGPoint.zero
-      background.position = CGPoint(x: (backgroundTexture.size().width * CGFloat(i)) - CGFloat(1 * i), y: 0.0)
 
       addChild(background)
 
-      let moveLeft = SKAction.moveBy(x: -backgroundTexture.size().width, y: 0.0, duration: 10.0)
-      let moveReset = SKAction.moveBy(x: backgroundTexture.size().width, y: 0.0, duration: 0.0)
-      let moveLoop = SKAction.sequence([moveLeft, moveReset])
-      let moveForever = SKAction.repeatForever(moveLoop)
-
-      background.run(moveForever)
+      background.movement()
     }
   }
 
@@ -38,7 +32,7 @@ extension GameScene {
 
   func createScoreLabel() {
     scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
-    scoreLabel.fontSize = scoreFontSize
+    scoreLabel.fontSize = SceneTraits.scoreFontSize
     scoreLabel.horizontalAlignmentMode = .right
     scoreLabel.verticalAlignmentMode = .top
     scoreLabel.position = CGPoint(x: size.width - 35.0, y: size.height - 35.0)
@@ -46,23 +40,11 @@ extension GameScene {
     addChild(scoreLabel)
   }
 
-  // MARK: - Music
-
-  func createMusicGame() {
-    let music = SKAudioNode(fileNamed: "space-game.wav")
-    music.autoplayLooped = true
-    music.isPositional = false
-
-    addChild(music)
-
-    music.run(SKAction.play())
-  }
-
   // MARK: - Player
 
   func createPlayer() {
     player.name = GameSceneNodes.player.rawValue
-    player.zPosition = 1.0
+    player.zPosition = 3.0
     player.position = CGPoint(x: size.width * 0.15, y: size.height * 0.5)
     player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
     player.physicsBody?.isDynamic = true
@@ -85,7 +67,7 @@ extension GameScene {
     let projectile = SKSpriteNode(imageNamed: "img_shot")
     projectile.name = GameSceneNodes.playerProjectile.rawValue
     projectile.position = CGPoint(x: player.position.x + 55.0, y: player.position.y)
-    projectile.zPosition = 1.0
+    projectile.zPosition = 3.0
     projectile.setScale(2.0)
     projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
     projectile.physicsBody?.isDynamic = true
@@ -126,7 +108,7 @@ extension GameScene {
     firePad.anchorPoint = CGPoint(x: 1.0, y: 0.0)
     firePad.name = GameSceneNodes.firePad.rawValue
     firePad.position = CGPoint(x: size.width - 75.0, y: size.height / 8)
-    firePad.zPosition = 1.0
+    firePad.zPosition = 2.0
     firePad.alpha = 0.3
     firePad.setScale(0.25)
 
@@ -191,36 +173,6 @@ extension GameScene {
     turboPlayer.isHidden = true
   }
 
-  func createPlayerExplosion(in position: CGPoint, completion: @escaping() -> Void) {
-    let animatedAtlas = SKTextureAtlas(named: "PlayerExplosion")
-    let numImages = animatedAtlas.textureNames.count
-
-    var explosion = SKSpriteNode()
-    var frames: [SKTexture] = []
-
-    for i in 1...numImages {
-      let textureName = "Ship6_Explosion_\(i)"
-      frames.append(animatedAtlas.textureNamed(textureName))
-    }
-
-    let firstFrameTexture = frames[0]
-    explosion = SKSpriteNode(texture: firstFrameTexture)
-    explosion.position = position
-
-    addChild(explosion)
-
-    run(SKAction.playSoundFileNamed("player-explosion.wav", waitForCompletion: false))
-
-    explosion.run(SKAction.animate(with: frames,
-                                   timePerFrame: 0.1,
-                                   resize: false,
-                                   restore: true)) {
-      explosion.removeFromParent()
-
-      completion()
-    }
-  }
-
   // MARK: - Enemies
 
   func createEnemy() {
@@ -230,7 +182,7 @@ extension GameScene {
     let randomY = CGFloat.random(in: enemy.size.height / 2...size.height - enemy.size.height / 2)
 
     enemy.position = CGPoint(x: size.width + enemy.frame.width, y: randomY)
-    enemy.zPosition = 1.0
+    enemy.zPosition = 3.0
     enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.frame.size)
     enemy.physicsBody?.categoryBitMask = PhysicsCategory.enemy
     enemy.physicsBody?.contactTestBitMask = PhysicsCategory.player
@@ -264,7 +216,7 @@ extension GameScene {
   func createEnemyShot(for enemy: SKSpriteNode) {
     let projectile = SKSpriteNode(imageNamed: "img_enemy_shot")
     projectile.position = CGPoint(x: enemy.position.x - 55.0, y: enemy.position.y)
-    projectile.zPosition = 1.0
+    projectile.zPosition = 3.0
     projectile.setScale(1.5)
     projectile.name = GameSceneNodes.enemyProjectile.rawValue
     projectile.physicsBody = SKPhysicsBody(rectangleOf: projectile.size)
@@ -311,59 +263,17 @@ extension GameScene {
                    withKey: "enemyTurbo")
   }
 
-  func createEnemyExplosion(in position: CGPoint) {
-    let animatedAtlas = SKTextureAtlas(named: "EnemyExplosion")
-    let numImages = animatedAtlas.textureNames.count
-
-    var explosion = SKSpriteNode()
-    var frames: [SKTexture] = []
-
-    for i in 1...numImages {
-      let textureName = "Ship2_Explosion_\(i)"
-      frames.append(animatedAtlas.textureNamed(textureName))
-    }
-
-    let firstFrameTexture = frames[0]
-    explosion = SKSpriteNode(texture: firstFrameTexture)
-    explosion.position = position
-
-    addChild(explosion)
-
-    run(SKAction.playSoundFileNamed("enemy-explosion.wav", waitForCompletion: false))
-
-    explosion.run(SKAction.animate(with: frames,
-                                   timePerFrame: 0.1,
-                                   resize: false,
-                                   restore: true)) {
-      explosion.removeFromParent()
-    }
-  }
-
   func createAsteroid() {
-    let asteroid = SKSpriteNode(imageNamed: "img_asteroids")
+    guard let image = UIImage(named: "img_asteroids") else {
+      return
+    }
+    let texture = SKTexture(image: image)
+    let actualY = CGFloat.random(in: texture.size().height / 2...size.height - texture.size().height / 2)
+    let position = CGPoint(x: size.width + texture.size().width / 2, y: actualY)
+    let asteroid = Asteroid(texture: texture, position: position)
     asteroid.name = GameSceneNodes.asteroid.rawValue
-    asteroid.physicsBody = SKPhysicsBody(rectangleOf: asteroid.size)
-    asteroid.physicsBody?.isDynamic = true
-    asteroid.physicsBody?.categoryBitMask = PhysicsCategory.enemy
-    asteroid.physicsBody?.collisionBitMask = PhysicsCategory.none
-    asteroid.physicsBody?.usesPreciseCollisionDetection = true
-
-    let actualY = CGFloat.random(in: asteroid.size.height / 2...size.height - asteroid.size.height / 2)
-
-    asteroid.position = CGPoint(x: size.width + asteroid.size.width / 2, y: actualY)
 
     addChild(asteroid)
-
-    let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 2.0)
-    let repeatRotateAction = SKAction.repeatForever(rotateAction)
-    asteroid.run(repeatRotateAction)
-
-    let actualDuration = CGFloat.random(in: CGFloat(1.0)...CGFloat(2.5))
-    let actionMove = SKAction.move(to: CGPoint(x: -asteroid.size.width / 2, y: actualY),
-                                   duration: TimeInterval(actualDuration))
-    let actionMoveDone = SKAction.removeFromParent()
-
-    asteroid.run(SKAction.sequence([actionMove, actionMoveDone]))
   }
 
   func createDefaultExplosion(in position: CGPoint) {
@@ -392,5 +302,75 @@ extension GameScene {
                                    restore: true)) {
       explosion.removeFromParent()
     }
+  }
+
+  func createPlayerExplosion(in position: CGPoint, completion: @escaping() -> Void) {
+    let animatedAtlas = SKTextureAtlas(named: "PlayerExplosion")
+    let numImages = animatedAtlas.textureNames.count
+
+    var explosion = SKSpriteNode()
+    var frames: [SKTexture] = []
+
+    for i in 1...numImages {
+      let textureName = "Ship6_Explosion_\(i)"
+      frames.append(animatedAtlas.textureNamed(textureName))
+    }
+
+    let firstFrameTexture = frames[0]
+    explosion = SKSpriteNode(texture: firstFrameTexture)
+    explosion.position = position
+
+    addChild(explosion)
+
+    run(SKAction.playSoundFileNamed("player-explosion.wav", waitForCompletion: false))
+
+    explosion.run(SKAction.animate(with: frames,
+                                   timePerFrame: 0.1,
+                                   resize: false,
+                                   restore: true)) {
+      explosion.removeFromParent()
+
+      completion()
+    }
+  }
+
+  func createEnemyExplosion(in position: CGPoint) {
+    let animatedAtlas = SKTextureAtlas(named: "EnemyExplosion")
+    let numImages = animatedAtlas.textureNames.count
+
+    var explosion = SKSpriteNode()
+    var frames: [SKTexture] = []
+
+    for i in 1...numImages {
+      let textureName = "Ship2_Explosion_\(i)"
+      frames.append(animatedAtlas.textureNamed(textureName))
+    }
+
+    let firstFrameTexture = frames[0]
+    explosion = SKSpriteNode(texture: firstFrameTexture)
+    explosion.position = position
+
+    addChild(explosion)
+
+    run(SKAction.playSoundFileNamed("enemy-explosion.wav", waitForCompletion: false))
+
+    explosion.run(SKAction.animate(with: frames,
+                                   timePerFrame: 0.1,
+                                   resize: false,
+                                   restore: true)) {
+      explosion.removeFromParent()
+    }
+  }
+
+  // MARK: - Music
+
+  func createMusicGame() {
+    let music = SKAudioNode(fileNamed: "space-game.wav")
+    music.autoplayLooped = true
+    music.isPositional = false
+
+    addChild(music)
+
+    music.run(SKAction.play())
   }
 }
