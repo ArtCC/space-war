@@ -25,7 +25,7 @@ extension GameScene {
           }
           selectedNodes[touch] = node
         } else if node.name == GameSceneNodes.firePad.rawValue {
-          player.shot()
+          playerShot()
         }
       }
     }

@@ -38,7 +38,7 @@ class GameScene: SKScene {
     static let scoreFontSize: CGFloat = 26
 
     // Score
-    static let scoreForBoss: Int = 15
+    static let scoreForBoss: Int = 0
   }
 
   var scoreLabel = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
@@ -52,6 +52,10 @@ class GameScene: SKScene {
       ScoreManager.saveScore(enemiesDestroyed)
 
       scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
+
+      enemiesDestroyed > SceneTraits.scoreForBoss ? createFinalBoss() : nil
+
+      bossIsActive = enemiesDestroyed > SceneTraits.scoreForBoss
     }
   }
   var bossIsActive = false {
@@ -78,17 +82,16 @@ class GameScene: SKScene {
   // MARK: - Lifecycle's functions
 
   override func didMove(to view: SKView) {
+    setupPhysics()
+
     createParallaxBackground()
     createScoreLabel()
     createMusicGame()
-    // createPlayer()
+    createPlayer()
     createPlayerControls()
 
-    setupPhysics()
-
-    addAsteroidToScene()
-    addEnemyToScene()
-    createFinalBoss()
+    addAsteroids()
+    addEnemies()
   }
 
   override func update(_ currentTime: TimeInterval) {
@@ -122,7 +125,7 @@ class GameScene: SKScene {
                                                          frame.size.height))
   }
 
-  private func addAsteroidToScene() {
+  private func addAsteroids() {
     run(SKAction.repeatForever(
       SKAction.sequence([
         SKAction.run(createAsteroid),
@@ -131,7 +134,7 @@ class GameScene: SKScene {
     ), withKey: Keys.addAsteroidActionKey)
   }
 
-  private func addEnemyToScene() {
+  private func addEnemies() {
     run(SKAction.repeatForever(
       SKAction.sequence([
         SKAction.run(createEnemy),

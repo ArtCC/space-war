@@ -31,6 +31,7 @@ extension GameScene {
   // MARK: - Score
 
   func createScoreLabel() {
+    scoreLabel.zPosition = 6.0
     scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
     scoreLabel.fontSize = SceneTraits.scoreFontSize
     scoreLabel.horizontalAlignmentMode = .right
@@ -111,28 +112,72 @@ extension GameScene {
 
     enemy.addTurboEngineFire(with: Textures.enemyTurboEngine)
     enemy.movement()
-    enemy.fire(with: Images.enemyShot)
+
+    enemyShot(in: enemy, with: Images.enemyShot)
+
+    repeatShot(in: enemy, with: Images.enemyShot)
 
     addChild(enemy)
   }
 
   func createFinalBoss() {
-    guard let image = UIImage(named: Images.boss) else {
+    if !bossIsActive {
+      guard let image = UIImage(named: Images.boss) else {
+        return
+      }
+      let texture = SKTexture(image: image)
+      let enemy = Boss(texture: texture)
+      let randomY = CGFloat.random(in: enemy.size.height / 2...size.height - enemy.size.height / 2)
+
+      enemy.name = GameSceneNodes.boss.rawValue
+      enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
+      enemy.setScale(1.5)
+
+      enemy.addTurboEngineFire(with: Textures.bossTurboEngine)
+      enemy.movement()
+
+      enemyShot(in: enemy, with: Images.bossShot)
+
+      repeatShot(in: enemy, with: Images.bossShot)
+
+      addChild(enemy)
+    }
+  }
+
+  // MARK: - Shots
+
+  func playerShot() {
+    guard let image = UIImage(named: Images.playerShot) else {
       return
     }
     let texture = SKTexture(image: image)
-    let enemy = Enemy(texture: texture)
-    let randomY = CGFloat.random(in: enemy.size.height / 2...size.height - enemy.size.height / 2)
+    let projectile = Shot(texture: texture,
+                          position: CGPoint(x: player.frame.maxX + 20.0, y: player.position.y),
+                          type: .leftToRight)
+    projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
+    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.enemy
+    projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
 
-    enemy.name = GameSceneNodes.boss.rawValue
-    enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
-    enemy.setScale(1.5)
-    
-    enemy.addTurboEngineFire(with: Textures.bossTurboEngine)
-    enemy.movement()
-    enemy.fire(with: Images.bossShot)
+    projectile.movement()
 
-    addChild(enemy)
+    addChild(projectile)
+  }
+
+  func enemyShot(in node: SKSpriteNode, with imageNamed: String) {
+    guard let image = UIImage(named: imageNamed) else {
+      return
+    }
+    let texture = SKTexture(image: image)
+    let projectile = Shot(texture: texture,
+                          position: CGPoint(x: node.frame.origin.x - 20.0, y: node.position.y),
+                          type: .rightToLeft)
+    projectile.physicsBody?.categoryBitMask = PhysicsCategory.enemyProjectile
+    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.player
+    projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
+
+    projectile.movement()
+
+    addChild(projectile)
   }
 
   // MARK: - Music
@@ -145,5 +190,18 @@ extension GameScene {
     addChild(music)
 
     music.run(SKAction.play())
+  }
+
+  // MARK: - Private
+
+  private func repeatShot(in node: SKSpriteNode, with image: String) {
+    let shotDelay = SKAction.wait(forDuration: 1.5)
+    let shotAction = SKAction.run {
+      self.enemyShot(in: node, with: image)
+    }
+    let shotSequence = SKAction.sequence([shotDelay, shotAction])
+    let shotForever = SKAction.repeatForever(shotSequence)
+
+    run(shotForever)
   }
 }

@@ -41,7 +41,7 @@ class Enemy: SKSpriteNode {
 
     let firstFrameTexture = frames[0]
     let turboEnemy = SKSpriteNode(texture: firstFrameTexture)
-    turboEnemy.position = CGPoint(x: size.width / 2.0, y: 0.0)
+    turboEnemy.position = CGPoint(x: (size.width / 2.0) + 5.0, y: 0.0)
 
     addChild(turboEnemy)
 
@@ -59,19 +59,6 @@ class Enemy: SKSpriteNode {
     run(sequence)
   }
 
-  func fire(with imageNamed: String) {
-    shot(with: imageNamed)
-
-    let shotDelay = SKAction.wait(forDuration: 1.5)
-    let shotAction = SKAction.run {
-      self.shot(with: imageNamed)
-    }
-    let shotSequence = SKAction.sequence([shotDelay, shotAction])
-    let shotForever = SKAction.repeatForever(shotSequence)
-
-    run(shotForever)
-  }
-
   // MARK: - Private
 
   private func setup() {
@@ -82,33 +69,5 @@ class Enemy: SKSpriteNode {
     physicsBody?.contactTestBitMask = PhysicsCategory.player
     physicsBody?.collisionBitMask = PhysicsCategory.none
     physicsBody?.usesPreciseCollisionDetection = true
-  }
-
-  private func shot(with imageNamed: String) {
-    guard let image = UIImage(named: imageNamed) else {
-      return
-    }
-    let texture = SKTexture(image: image)
-    let projectile = SKSpriteNode(texture: texture)
-    projectile.position = convert(CGPoint(x: -(size.width / 2.0), y: 0.0), to: self)
-    projectile.zPosition = 1.0
-    projectile.setScale(1.5)
-    projectile.name = GameSceneNodes.enemyProjectile.rawValue
-    projectile.physicsBody = SKPhysicsBody(rectangleOf: projectile.size)
-    projectile.physicsBody?.categoryBitMask = PhysicsCategory.enemyProjectile
-    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.player
-    projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
-    projectile.physicsBody?.usesPreciseCollisionDetection = true
-
-    addChild(projectile)
-
-    let direction = CGVector(dx: -1.0, dy: 0.0)
-    let distance: CGFloat = 750.0
-    let action = SKAction.move(by: CGVector(dx: direction.dx * distance, dy: direction.dy * distance), duration: 1.0)
-    let remove = SKAction.removeFromParent()
-
-    projectile.run(SKAction.sequence([action, remove]))
-
-    run(SKAction.playSoundFileNamed(Music.shot, waitForCompletion: false))
   }
 }

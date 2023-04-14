@@ -28,8 +28,8 @@ struct Images {
 }
 
 struct Keys {
-  static let addAsteroidActionKey = "addAsteroidActionKey"
-  static let addEnemyActionKey = "addEnemyActionKey"
+  static let addAsteroidActionKey = "add.asteroid.action.key"
+  static let addEnemyActionKey = "add.enemy.action.key"
   static let scoreKey = "score.key"
 }
 

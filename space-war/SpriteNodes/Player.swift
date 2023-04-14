@@ -43,39 +43,6 @@ class Player: SKSpriteNode {
     turboEngineNode.isHidden = isHidden
   }
 
-  func shot() {
-    guard let image = UIImage(named: Images.playerShot) else {
-      return
-    }
-    let texture = SKTexture(image: image)
-    let projectile = SKSpriteNode(texture: texture)
-    projectile.name = GameSceneNodes.playerProjectile.rawValue
-    projectile.position = convert(CGPoint(x: 55.0, y: 0.0), to: self)
-    projectile.zPosition = 1.0
-    projectile.setScale(2.0)
-    projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
-    projectile.physicsBody?.isDynamic = true
-    projectile.physicsBody?.categoryBitMask = PhysicsCategory.projectile
-    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.enemy
-    projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
-    projectile.physicsBody?.usesPreciseCollisionDetection = true
-
-    addChild(projectile)
-
-    let angle = zRotation - CGFloat.pi * 2
-    let direction = CGVector(dx: cos(angle), dy: sin(angle))
-    let speed: CGFloat = 500.0
-    let distance: CGFloat = 750.0
-    let move = SKAction.move(by: CGVector(dx: direction.dx * distance, dy: direction.dy * distance),
-                             duration: distance / speed)
-    let remove = SKAction.removeFromParent()
-    let action = SKAction.sequence([move, remove])
-
-    projectile.run(action)
-
-    run(SKAction.playSoundFileNamed(Music.shot, waitForCompletion: false))
-  }
-
   // MARK: - Private
 
   private func setup(with position: CGPoint) {
@@ -113,7 +80,7 @@ class Player: SKSpriteNode {
 
     let firstFrameTexture = normalEngineFrames[0]
     normalEngineNode = SKSpriteNode(texture: firstFrameTexture)
-    normalEngineNode.position = CGPoint(x: -size.width / 2.0, y: 0.0)
+    normalEngineNode.position = CGPoint(x: (-size.width / 2.0) - 10.0, y: 0.0)
 
     addChild(normalEngineNode)
 

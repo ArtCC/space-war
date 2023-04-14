@@ -24,23 +24,22 @@ extension GameScene: SKPhysicsContactDelegate {
       secondBody = contact.bodyA
     }
 
-    if firstBody.categoryBitMask == PhysicsCategory.enemy && PhysicsCategory.enemy != 0 &&
-        secondBody.categoryBitMask == PhysicsCategory.projectile && PhysicsCategory.projectile != 0 {
+    if firstBody.categoryBitMask == PhysicsCategory.enemy && secondBody.categoryBitMask == PhysicsCategory.projectile {
       if let enemy = firstBody.node as? SKSpriteNode,
          let projectile = secondBody.node as? SKSpriteNode {
         projectileDidCollideWithEnemy(projectile, enemy)
       }
-    } else if firstBody.categoryBitMask == PhysicsCategory.enemy && PhysicsCategory.enemy != 0 &&
-                secondBody.categoryBitMask == PhysicsCategory.player && PhysicsCategory.player != 0 {
+    } else if firstBody.categoryBitMask == PhysicsCategory.enemy &&
+                secondBody.categoryBitMask == PhysicsCategory.player {
       if let enemy = firstBody.node as? SKSpriteNode,
          let player = secondBody.node as? SKSpriteNode {
         playerDidCollideWithEnemy(player, enemy)
       }
-    } else if firstBody.categoryBitMask == PhysicsCategory.player && PhysicsCategory.player != 0 &&
-                secondBody.categoryBitMask == PhysicsCategory.enemyProjectile && PhysicsCategory.enemyProjectile != 0 {
-      if let enemyProjectile = firstBody.node as? SKSpriteNode,
-         let player = secondBody.node as? SKSpriteNode {
-        enemyProjectileDidCollideWithEnemy(enemyProjectile, player)
+    } else if firstBody.categoryBitMask == PhysicsCategory.player &&
+                secondBody.categoryBitMask == PhysicsCategory.enemyProjectile {
+      if let player = firstBody.node as? SKSpriteNode,
+         let enemyProjectile = secondBody.node as? SKSpriteNode {
+        enemyProjectileDidCollideWithPlayer(enemyProjectile, player)
       }
     }
   }
