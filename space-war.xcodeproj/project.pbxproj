@@ -37,6 +37,8 @@
 		80A36ACF29E98653006FF763 /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A36ACE29E98653006FF763 /* Boss.swift */; };
 		80A36AD129E99AE7006FF763 /* BossExplosion.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80A36AD029E99AE7006FF763 /* BossExplosion.atlas */; };
 		80A36AD329E9BD67006FF763 /* Shot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A36AD229E9BD67006FF763 /* Shot.swift */; };
+		80A36AD629E9E2CB006FF763 /* Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A36AD529E9E2CB006FF763 /* Nodes.swift */; };
+		80A36AD829E9E2DD006FF763 /* Physics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A36AD729E9E2DD006FF763 /* Physics.swift */; };
 		80B20E7529E74C0F0097F28E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B20E7429E74C0F0097F28E /* Constants.swift */; };
 		80B20E7A29E74F770097F28E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80B20E7C29E74F770097F28E /* Localizable.strings */; };
 		80F0DB7529E575F400F8782B /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F0DB7429E575F400F8782B /* GameOverScene.swift */; };
@@ -81,6 +83,8 @@
 		80A36ACE29E98653006FF763 /* Boss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boss.swift; sourceTree = "<group>"; };
 		80A36AD029E99AE7006FF763 /* BossExplosion.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BossExplosion.atlas; sourceTree = "<group>"; };
 		80A36AD229E9BD67006FF763 /* Shot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shot.swift; sourceTree = "<group>"; };
+		80A36AD529E9E2CB006FF763 /* Nodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nodes.swift; sourceTree = "<group>"; };
+		80A36AD729E9E2DD006FF763 /* Physics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Physics.swift; sourceTree = "<group>"; };
 		80B20E7429E74C0F0097F28E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		80B20E7B29E74F770097F28E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80B20E7D29E74F7F0097F28E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 				809E8EA129E42026001AB601 /* AppDelegate.swift */,
 				80B20E7429E74C0F0097F28E /* Constants.swift */,
 				80F0DB8029E59DC400F8782B /* Managers */,
+				80A36AD429E9E2B1006FF763 /* Models */,
 				802C22C029E44A260038841E /* Extensions */,
 				809E8EBA29E422A4001AB601 /* Resources */,
 				809E8ECA29E426AB001AB601 /* Scenes */,
@@ -233,6 +238,15 @@
 				809E8EAB29E42026001AB601 /* Main.storyboard */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		80A36AD429E9E2B1006FF763 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				80A36AD529E9E2CB006FF763 /* Nodes.swift */,
+				80A36AD729E9E2DD006FF763 /* Physics.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		80F0DB8029E59DC400F8782B /* Managers */ = {
@@ -338,6 +352,7 @@
 				80F0DB7529E575F400F8782B /* GameOverScene.swift in Sources */,
 				80F0DB8229E59DCF00F8782B /* ScoreManager.swift in Sources */,
 				804CB7B629E9517E00051684 /* Asteroid.swift in Sources */,
+				80A36AD829E9E2DD006FF763 /* Physics.swift in Sources */,
 				802C22CA29E44B1E0038841E /* String.swift in Sources */,
 				80B20E7529E74C0F0097F28E /* Constants.swift in Sources */,
 				804CB7BA29E967FE00051684 /* Enemy.swift in Sources */,
@@ -348,6 +363,7 @@
 				80731ACC29E69D3F00B6BBF7 /* GameScene+UITouch.swift in Sources */,
 				80731ACE29E69E5B00B6BBF7 /* GameScene+Delegates.swift in Sources */,
 				80A36AD329E9BD67006FF763 /* Shot.swift in Sources */,
+				80A36AD629E9E2CB006FF763 /* Nodes.swift in Sources */,
 				804CB7BC29E96B6C00051684 /* Explosion.swift in Sources */,
 				809E8EA229E42026001AB601 /* AppDelegate.swift in Sources */,
 				80731ACA29E69C7900B6BBF7 /* GameScene+Create.swift in Sources */,

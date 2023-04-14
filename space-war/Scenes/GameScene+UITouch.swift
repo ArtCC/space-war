@@ -17,14 +17,14 @@ extension GameScene {
       let touchLocation = touch.location(in: self)
 
       if let node = atPoint(touchLocation) as? SKSpriteNode {
-        if node.name == GameSceneNodes.joystick.rawValue {
+        if node.name == Nodes.joystick.rawValue {
           if (CGRectContainsPoint(joystick.frame, touchLocation)) {
             joystickIsActive = true
           } else {
             joystickIsActive = false
           }
           selectedNodes[touch] = node
-        } else if node.name == GameSceneNodes.firePad.rawValue {
+        } else if node.name == Nodes.firePad.rawValue {
           playerShot()
         }
       }

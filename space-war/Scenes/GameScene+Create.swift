@@ -51,7 +51,7 @@ extension GameScene {
     let position = CGPoint(x: size.width * 0.15, y: size.height * 0.5)
     
     player = Player(texture: texture, size: texture.size(), position: position)
-    player.name = GameSceneNodes.player.rawValue
+    player.name = Nodes.player.rawValue
 
     addChild(player)
 
@@ -60,20 +60,20 @@ extension GameScene {
   }
 
   func createPlayerControls() {
-    joystickBase.name = GameSceneNodes.joystickBase.rawValue
+    joystickBase.name = Nodes.joystickBase.rawValue
     joystickBase.position = CGPoint(x: joystickBase.size.width / 4 + 50.0, y: joystickBase.size.height / 4)
     joystickBase.zPosition = 5.0
     joystickBase.alpha = 0.2
     joystickBase.setScale(0.3)
 
-    joystick.name = GameSceneNodes.joystick.rawValue
+    joystick.name = Nodes.joystick.rawValue
     joystick.position = joystickBase.position
     joystick.zPosition = 6.0
     joystick.alpha = 0.5
     joystick.setScale(0.20)
 
     firePad.anchorPoint = CGPoint(x: 1.0, y: 0.0)
-    firePad.name = GameSceneNodes.firePad.rawValue
+    firePad.name = Nodes.firePad.rawValue
     firePad.position = CGPoint(x: size.width - 75.0, y: size.height / 8)
     firePad.zPosition = 6.0
     firePad.alpha = 0.5
@@ -94,7 +94,7 @@ extension GameScene {
     let actualY = CGFloat.random(in: texture.size().height / 2...size.height - texture.size().height / 2)
     let position = CGPoint(x: size.width + texture.size().width / 2, y: actualY)
     let asteroid = Asteroid(texture: texture, position: position)
-    asteroid.name = GameSceneNodes.asteroid.rawValue
+    asteroid.name = Nodes.asteroid.rawValue
 
     addChild(asteroid)
   }
@@ -107,15 +107,31 @@ extension GameScene {
     let enemy = Enemy(texture: texture)
     let randomY = CGFloat.random(in: enemy.size.height / 2...size.height - enemy.size.height / 2)
 
-    enemy.name = GameSceneNodes.enemy.rawValue
-    enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
+    enemy.name = Nodes.enemy.rawValue
+    enemy.position = CGPoint(x: size.width + (enemy.size.width * 2), y: randomY)
 
     enemy.addTurboEngineFire(with: Textures.enemyTurboEngine)
     enemy.movement()
 
-    enemyShot(in: enemy, with: Images.enemyShot)
+    let shotDelay = SKAction.wait(forDuration: 1.5)
+    let shotAction = SKAction.run {
+      guard let image = UIImage(named: Images.enemyShot) else {
+        return
+      }
+      let texture = SKTexture(image: image)
+      let projectile = Shot(texture: texture, position: CGPoint(x: -50.0, y: 0.0), type: .rightToLeft)
+      projectile.physicsBody?.categoryBitMask = PhysicsCategory.enemyProjectile
+      projectile.physicsBody?.contactTestBitMask = PhysicsCategory.player
+      projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
 
-    repeatShot(in: enemy, with: Images.enemyShot)
+      projectile.movement()
+
+      enemy.addChild(projectile)
+    }
+    let shotSequence = SKAction.sequence([shotDelay, shotAction])
+    let shotForever = SKAction.repeatForever(shotSequence)
+
+    run(shotForever)
 
     addChild(enemy)
   }
@@ -129,16 +145,34 @@ extension GameScene {
       let enemy = Boss(texture: texture)
       let randomY = CGFloat.random(in: enemy.size.height / 2...size.height - enemy.size.height / 2)
 
-      enemy.name = GameSceneNodes.boss.rawValue
+      enemy.name = Nodes.boss.rawValue
       enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
       enemy.setScale(1.5)
 
       enemy.addTurboEngineFire(with: Textures.bossTurboEngine)
       enemy.movement()
 
-      enemyShot(in: enemy, with: Images.bossShot)
+      let shotDelay = SKAction.wait(forDuration: 1.0)
+      let shotAction = SKAction.run {
+        guard let image = UIImage(named: Images.bossShot) else {
+          return
+        }
+        let texture = SKTexture(image: image)
+        let projectile = Shot(texture: texture,
+                              position: CGPoint(x: enemy.frame.origin.x - 20.0, y: enemy.position.y),
+                              type: .rightToLeft)
+        projectile.physicsBody?.categoryBitMask = PhysicsCategory.enemyProjectile
+        projectile.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
 
-      repeatShot(in: enemy, with: Images.bossShot)
+        projectile.movement()
+
+        self.addChild(projectile)
+      }
+      let shotSequence = SKAction.sequence([shotDelay, shotAction])
+      let shotForever = SKAction.repeatForever(shotSequence)
+
+      run(shotForever)
 
       addChild(enemy)
     }
@@ -163,23 +197,6 @@ extension GameScene {
     addChild(projectile)
   }
 
-  func enemyShot(in node: SKSpriteNode, with imageNamed: String) {
-    guard let image = UIImage(named: imageNamed) else {
-      return
-    }
-    let texture = SKTexture(image: image)
-    let projectile = Shot(texture: texture,
-                          position: CGPoint(x: node.frame.origin.x - 20.0, y: node.position.y),
-                          type: .rightToLeft)
-    projectile.physicsBody?.categoryBitMask = PhysicsCategory.enemyProjectile
-    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.player
-    projectile.physicsBody?.collisionBitMask = PhysicsCategory.none
-
-    projectile.movement()
-
-    addChild(projectile)
-  }
-
   // MARK: - Music
 
   func createMusicGame() {
@@ -190,18 +207,5 @@ extension GameScene {
     addChild(music)
 
     music.run(SKAction.play())
-  }
-
-  // MARK: - Private
-
-  private func repeatShot(in node: SKSpriteNode, with image: String) {
-    let shotDelay = SKAction.wait(forDuration: 1.5)
-    let shotAction = SKAction.run {
-      self.enemyShot(in: node, with: image)
-    }
-    let shotSequence = SKAction.sequence([shotDelay, shotAction])
-    let shotForever = SKAction.repeatForever(shotSequence)
-
-    run(shotForever)
   }
 }

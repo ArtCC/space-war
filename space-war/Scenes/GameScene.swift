@@ -8,27 +8,6 @@
 
 import SpriteKit
 
-enum GameSceneNodes: String {
-  case asteroid
-  case boss
-  case enemy
-  case enemyProjectile
-  case firePad
-  case joystick
-  case joystickBase
-  case player
-  case playerProjectile
-}
-
-struct PhysicsCategory {
-  static let all: UInt32 = UInt32.max
-  static let none: UInt32 = 0
-  static let enemy: UInt32 = 0b1
-  static let projectile: UInt32 = 0b10
-  static let player: UInt32 = 0b11
-  static let enemyProjectile: UInt32 = 0b100
-}
-
 class GameScene: SKScene {
 
   // MARK: - Properties
@@ -38,7 +17,7 @@ class GameScene: SKScene {
     static let scoreFontSize: CGFloat = 26
 
     // Score
-    static let scoreForBoss: Int = 0
+    static let scoreForBoss: Int = 15
   }
 
   var scoreLabel = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
@@ -53,9 +32,11 @@ class GameScene: SKScene {
 
       scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
 
-      enemiesDestroyed > SceneTraits.scoreForBoss ? createFinalBoss() : nil
+      if enemiesDestroyed > SceneTraits.scoreForBoss {
+        createFinalBoss()
 
-      bossIsActive = enemiesDestroyed > SceneTraits.scoreForBoss
+        bossIsActive = true
+      }
     }
   }
   var bossIsActive = false {

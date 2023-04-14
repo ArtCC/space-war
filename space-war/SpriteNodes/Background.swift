@@ -39,8 +39,7 @@ class Background: SKSpriteNode {
   // MARK: - Private
 
   private func setup(with position: CGPoint, and alpha: CGFloat) {
-    zPosition = -1
-
+    self.zPosition = -1
     self.position = position
     self.alpha = alpha
   }

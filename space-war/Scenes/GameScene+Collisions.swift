@@ -18,13 +18,13 @@ extension GameScene {
     let explosion = Explosion(size: enemy.size)
 
     switch enemy.name {
-    case GameSceneNodes.asteroid.rawValue:
+    case Nodes.asteroid.rawValue:
       explosion.explosion(texture: Textures.explosion, music: Music.enemyExplosion, in: enemy.position)
-    case GameSceneNodes.boss.rawValue:
+    case Nodes.boss.rawValue:
       explosion.explosion(texture: Textures.bossExplosion, music: Music.enemyExplosion, in: enemy.position) {
         self.endGame(isWin: true)
       }
-    case GameSceneNodes.enemy.rawValue:
+    case Nodes.enemy.rawValue:
       explosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
     default:
       break
@@ -40,9 +40,9 @@ extension GameScene {
     let enemyExplosion = Explosion(size: enemy.size)
 
     switch enemy.name {
-    case GameSceneNodes.boss.rawValue:
+    case Nodes.boss.rawValue:
       enemyExplosion.explosion(texture: Textures.bossExplosion, music: Music.enemyExplosion, in: enemy.position)
-    case GameSceneNodes.enemy.rawValue:
+    case Nodes.enemy.rawValue:
       enemyExplosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
     default:
       break

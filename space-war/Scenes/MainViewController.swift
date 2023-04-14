@@ -28,10 +28,10 @@ class MainViewController: UIViewController {
   private func createMainScene() {
     let scene = MainMenuScene(size: view.bounds.size)
 
-    let skView = view as! SKView
+    guard let skView = view as? SKView else {
+      return
+    }
     skView.ignoresSiblingOrder = true
-    skView.showsFPS = false
-    skView.showsNodeCount = false
     skView.isMultipleTouchEnabled = true
     skView.presentScene(scene)
   }
