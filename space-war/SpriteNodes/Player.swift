@@ -44,7 +44,7 @@ class Player: SKSpriteNode {
   }
 
   func shot() {
-    guard let image = UIImage(named: "img_shot") else {
+    guard let image = UIImage(named: Images.playerShot) else {
       return
     }
     let texture = SKTexture(image: image)
@@ -73,7 +73,7 @@ class Player: SKSpriteNode {
 
     projectile.run(action)
 
-    run(SKAction.playSoundFileNamed("short-laser-gun-shot.wav", waitForCompletion: false))
+    run(SKAction.playSoundFileNamed(Music.shot, waitForCompletion: false))
   }
 
   // MARK: - Private
@@ -99,13 +99,13 @@ class Player: SKSpriteNode {
   }
 
   private func addNormalEngineFire() {
-    let animatedAtlas = SKTextureAtlas(named: "PlayerNormal")
+    let animatedAtlas = SKTextureAtlas(named: Textures.playerNormalEngine)
     let numImages = animatedAtlas.textureNames.count
 
     var frames: [SKTexture] = []
 
     for i in 1...numImages {
-      let textureName = "texture_\(i)"
+      let textureName = String(format: Textures.image, i)
       frames.append(animatedAtlas.textureNamed(textureName))
     }
     normalEngineFrames = frames
@@ -121,19 +121,19 @@ class Player: SKSpriteNode {
                        timePerFrame: 0.1,
                        resize: false,
                        restore: true)),
-                         withKey: "normalPlayer")
+                         withKey: Textures.playerNormalEngine)
 
     normalEngineNode.isHidden = true
   }
 
   private func addTurboEngineFire() {
-    let animatedAtlas = SKTextureAtlas(named: "PlayerTurbo")
+    let animatedAtlas = SKTextureAtlas(named: Textures.playerTurboEngine)
     let numImages = animatedAtlas.textureNames.count
 
     var frames: [SKTexture] = []
 
     for i in 1...numImages {
-      let textureName = "texture_\(i)"
+      let textureName = String(format: Textures.image, i)
       frames.append(animatedAtlas.textureNamed(textureName))
     }
     turboEngineFrames = frames
@@ -149,7 +149,7 @@ class Player: SKSpriteNode {
                        timePerFrame: 0.1,
                        resize: false,
                        restore: true)),
-                        withKey: "playerTurbo")
+                        withKey: Textures.playerTurboEngine)
 
     turboEngineNode.isHidden = true
   }

@@ -15,7 +15,7 @@ extension GameScene {
   // MARK: - Background
 
   func createParallaxBackground() {
-    let texture = SKTexture(imageNamed: "img_background_game")
+    let texture = SKTexture(imageNamed: Images.gameBackground)
 
     for i in 0...1 {
       let position = CGPoint(x: (texture.size().width * CGFloat(i)) - CGFloat(1 * i), y: 0.0)
@@ -43,7 +43,7 @@ extension GameScene {
   // MARK: - Player
 
   func createPlayer() {
-    guard let image = UIImage(named: "img_ship") else {
+    guard let image = UIImage(named: Images.player) else {
       return
     }
     let texture = SKTexture(image: image)
@@ -86,7 +86,7 @@ extension GameScene {
   // MARK: - Enemies
 
   func createAsteroid() {
-    guard let image = UIImage(named: "img_asteroids") else {
+    guard let image = UIImage(named: Images.asteroids) else {
       return
     }
     let texture = SKTexture(image: image)
@@ -99,7 +99,7 @@ extension GameScene {
   }
   
   func createEnemy() {
-    guard let image = UIImage(named: "img_enemy") else {
+    guard let image = UIImage(named: Images.enemy) else {
       return
     }
     let texture = SKTexture(image: image)
@@ -117,7 +117,7 @@ extension GameScene {
   // MARK: - Music
 
   func createMusicGame() {
-    let music = SKAudioNode(fileNamed: "space-game.wav")
+    let music = SKAudioNode(fileNamed: Music.game)
     music.autoplayLooped = true
     music.isPositional = false
 

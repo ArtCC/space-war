@@ -17,9 +17,9 @@ extension GameScene {
 
     switch enemy.name {
     case GameSceneNodes.asteroid.rawValue:
-      explosion.explosion(texture: "Explosion", music: "enemy-explosion.wav", in: enemy.position)
+      explosion.explosion(texture: Textures.explosion, music: Music.enemyExplosion, in: enemy.position)
     case GameSceneNodes.enemy.rawValue:
-      explosion.explosion(texture: "EnemyExplosion", music: "enemy-explosion.wav", in: enemy.position)
+      explosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
     default:
       break
     }
@@ -42,10 +42,10 @@ extension GameScene {
 
   func playerDidCollideWithEnemy(_ player: SKSpriteNode, _ enemy: SKSpriteNode) {
     let enemyExplosion = Explosion(size: enemy.size)
-    enemyExplosion.explosion(texture: "EnemyExplosion", music: "enemy-explosion.wav", in: enemy.position)
+    enemyExplosion.explosion(texture: Textures.enemyExplosion, music: Music.enemyExplosion, in: enemy.position)
 
     let playerExplosion = Explosion(size: player.size)
-    playerExplosion.explosion(texture: "PlayerExplosion", music: "player-explosion.wav", in: player.position) {
+    playerExplosion.explosion(texture: Textures.playerExplosion, music: Music.playerExplosion, in: player.position) {
       self.endGame(isWin: false)
     }
 
@@ -58,7 +58,7 @@ extension GameScene {
 
   func enemyProjectileDidCollideWithEnemy(_ enemyProjectile: SKSpriteNode, _ player: SKSpriteNode) {
     let explosion = Explosion(size: enemyProjectile.size)
-    explosion.explosion(texture: "PlayerExplosion", music: "player-explosion.wav", in: enemyProjectile.position) {
+    explosion.explosion(texture: Textures.playerExplosion, music: Music.playerExplosion, in: enemyProjectile.position) {
       self.endGame(isWin: false)
     }
 

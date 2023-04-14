@@ -33,10 +33,6 @@ class GameScene: SKScene {
   // MARK: - Properties
 
   struct SceneTraits {
-    // Keys
-    static let addAsteroidActionKey = "addAsteroidActionKey"
-    static let addEnemyActionKey = "addEnemyActionKey"
-
     // Size
     static let scoreFontSize: CGFloat = 26
 
@@ -44,7 +40,7 @@ class GameScene: SKScene {
     static let scoreForBoss: Int = 15
   }
 
-  var scoreLabel = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+  var scoreLabel = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
   var player = Player()
   var playerVelocityX: CGFloat = 0
   var playerVelocityY: CGFloat = 0
@@ -59,14 +55,14 @@ class GameScene: SKScene {
   }
   var bossIsActive = false {
     didSet {
-      removeAction(forKey: SceneTraits.addAsteroidActionKey)
-      removeAction(forKey: SceneTraits.addEnemyActionKey)
+      removeAction(forKey: Keys.addAsteroidActionKey)
+      removeAction(forKey: Keys.addEnemyActionKey)
     }
   }
 
-  let joystickBase = SKSpriteNode(imageNamed: "img_base_joystick")
-  let joystick = SKSpriteNode(imageNamed: "img_joystick")
-  let firePad = SKSpriteNode(imageNamed: "img_joystick")
+  let joystickBase = SKSpriteNode(imageNamed: Images.joystickBase)
+  let joystick = SKSpriteNode(imageNamed: Images.joystick)
+  let firePad = SKSpriteNode(imageNamed: Images.joystick)
 
   // MARK: - Init
 
@@ -130,7 +126,7 @@ class GameScene: SKScene {
         SKAction.run(createAsteroid),
         SKAction.wait(forDuration: 5.0)
       ])
-    ), withKey: SceneTraits.addAsteroidActionKey)
+    ), withKey: Keys.addAsteroidActionKey)
   }
 
   private func addEnemyToScene() {
@@ -139,6 +135,6 @@ class GameScene: SKScene {
         SKAction.run(createEnemy),
         SKAction.wait(forDuration: 2.5)
       ])
-    ), withKey: SceneTraits.addEnemyActionKey)
+    ), withKey: Keys.addEnemyActionKey)
   }
 }

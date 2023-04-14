@@ -57,13 +57,13 @@ class Enemy: SKSpriteNode {
   }
 
   private func addTurboEngineFire() {
-    let animatedAtlas = SKTextureAtlas(named: "EnemyTurbo")
+    let animatedAtlas = SKTextureAtlas(named: Textures.enemyTurboEngine)
     let numImages = animatedAtlas.textureNames.count
 
     var frames: [SKTexture] = []
 
     for i in 1...numImages {
-      let textureName = "texture_\(i)"
+      let textureName = String(format: Textures.image, i)
       frames.append(animatedAtlas.textureNamed(textureName))
     }
 
@@ -78,7 +78,7 @@ class Enemy: SKSpriteNode {
                        timePerFrame: 0.1,
                        resize: false,
                        restore: true)),
-                   withKey: "enemyTurbo")
+                   withKey: Textures.enemyTurboEngine)
   }
 
   private func addMovement() {
@@ -91,7 +91,7 @@ class Enemy: SKSpriteNode {
   }
 
   private func shot() {
-    guard let image = UIImage(named: "img_enemy_shot") else {
+    guard let image = UIImage(named: Images.enemyShot) else {
       return
     }
     let texture = SKTexture(image: image)
@@ -116,6 +116,6 @@ class Enemy: SKSpriteNode {
 
     projectile.run(SKAction.sequence([action, remove]))
 
-    run(SKAction.playSoundFileNamed("short-laser-gun-shot.wav", waitForCompletion: false))
+    run(SKAction.playSoundFileNamed(Music.shot, waitForCompletion: false))
   }
 }

@@ -47,7 +47,7 @@ class GameOverScene: SKScene {
   // MARK: - Private
   
   private func createBackground() {
-    guard let image = UIImage(named: "img_menu_background"),
+    guard let image = UIImage(named: Images.menuBackground),
           let scene else {
       return
     }
@@ -62,7 +62,7 @@ class GameOverScene: SKScene {
 
   private func createTitleLabel() {
     let text = win ? "game.over.win".localized() : "game.over.lose".localized()
-    let label = SKLabelNode(fontNamed: Constants.robotoRegularFont)
+    let label = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
     label.text = text
     label.fontSize = SceneTraits.fontSize
     label.fontColor = SKColor.white

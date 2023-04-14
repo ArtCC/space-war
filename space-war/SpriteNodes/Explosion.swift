@@ -32,7 +32,7 @@ class Explosion: SKSpriteNode {
     var frames: [SKTexture] = []
 
     for i in 1...numImages {
-      let textureName = "texture_\(i)"
+      let textureName = String(format: Textures.image, i)
       frames.append(animatedAtlas.textureNamed(textureName))
     }
 
