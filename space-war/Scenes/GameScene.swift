@@ -12,13 +12,43 @@ class GameScene: SKScene {
 
   // MARK: - Properties
 
-  private let player = SKSpriteNode(imageNamed: "img_ship")
-  private let joystickBase = SKSpriteNode(imageNamed: "img_base_joystick")
-  private let joystick = SKSpriteNode(imageNamed: "img_joystick")
+  struct SceneTraits {
+    // Size
+    static let scoreFontSize: CGFloat = 26
 
-  private var velocityX: CGFloat = 0
-  private var velocityY: CGFloat = 0
-  private var joystickIsActive = false
+    // Score
+    static let scoreForBoss: Int = 15
+  }
+
+  var scoreLabel = SKLabelNode(fontNamed: Fonts.robotoRegularFont)
+  var player = Player()
+  var playerVelocityX: CGFloat = 0
+  var playerVelocityY: CGFloat = 0
+  var selectedNodes: [UITouch: SKSpriteNode] = [:]
+  var joystickIsActive = false
+  var enemiesDestroyed = 0 {
+    didSet {
+      ScoreManager.saveScore(enemiesDestroyed)
+
+      scoreLabel.text = String(format: "main.menu.score.title".localized(), String(enemiesDestroyed))
+
+      if enemiesDestroyed > SceneTraits.scoreForBoss {
+        createFinalBoss()
+
+        bossIsActive = true
+      }
+    }
+  }
+  var bossIsActive = false {
+    didSet {
+      removeAction(forKey: Keys.addAsteroidActionKey)
+      removeAction(forKey: Keys.addEnemyActionKey)
+    }
+  }
+
+  let joystickBase = SKSpriteNode(imageNamed: Images.joystickBase)
+  let joystick = SKSpriteNode(imageNamed: Images.joystick)
+  let firePad = SKSpriteNode(imageNamed: Images.joystick)
 
   // MARK: - Init
 
@@ -33,88 +63,64 @@ class GameScene: SKScene {
   // MARK: - Lifecycle's functions
 
   override func didMove(to view: SKView) {
-    addChild(SetupScenes.getBackground(for: self))
+    setupPhysics()
 
-    player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-    player.physicsBody = SKPhysicsBody(rectangleOf: player.frame.size)
+    createParallaxBackground()
+    createScoreLabel()
+    createMusicGame()
+    createPlayer()
+    createPlayerControls()
 
-    if let physicsBody = player.physicsBody {
-      physicsBody.applyImpulse(CGVectorMake(10, 10))
-    }
-
-    physicsWorld.gravity = .zero
-    physicsBody = SKPhysicsBody(edgeLoopFrom: CGRectMake(CGRectGetMinX(self.frame),
-                                                         CGRectGetMinY(self.frame),
-                                                         self.frame.size.width,
-                                                         self.frame.size.height))
-
-    joystickBase.position = CGPoint(x: joystickBase.size.width / 4 + 50.0, y: joystickBase.size.height / 4)
-    joystickBase.zPosition = 1.0
-    joystickBase.alpha = 0.2
-    joystickBase.setScale(0.3)
-
-    joystick.position = joystickBase.position
-    joystick.zPosition = 2.0
-    joystick.alpha = 0.2
-    joystick.setScale(0.15)
-
-    addChild(player)
-    addChild(joystickBase)
-    addChild(joystick)
-  }
-
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    for touch in touches {
-      let location = touch.location(in: self)
-      if (CGRectContainsPoint(joystick.frame, location)) {
-        joystickIsActive = true
-      } else {
-        joystickIsActive = false
-      }
-    }
-  }
-
-  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    for touch in touches {
-      let location = touch.location(in: self)
-      if joystickIsActive == true {
-        let vector = CGVector(dx: location.x - joystickBase.position.x, dy: location.y - joystickBase.position.y)
-        let angle = atan2(vector.dy, vector.dx)
-        let radio: CGFloat = joystickBase.frame.size.height / 2
-        let xDist: CGFloat = sin(angle - 1.57079633) * radio
-        let yDist: CGFloat = cos(angle - 1.57079633) * radio
-
-        if (CGRectContainsPoint(joystickBase.frame, location)) {
-          joystick.position = location
-        } else {
-          joystick.position = CGPointMake(joystickBase.position.x - xDist, joystickBase.position.y + yDist)
-        }
-
-        player.zRotation = angle
-
-        velocityX = xDist / 49.0
-        velocityY = yDist / 49.0
-      }
-    }
-  }
-
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    if joystickIsActive == true {
-      let defaultPosition: SKAction = SKAction.move(to: joystickBase.position, duration: 0.05)
-      defaultPosition.timingMode = SKActionTimingMode.easeOut
-
-      joystick.run(defaultPosition)
-
-      joystickIsActive = false
-
-      velocityX = 0
-      velocityY = 0
-    }
+    addAsteroids()
+    addEnemies()
   }
 
   override func update(_ currentTime: TimeInterval) {
     if joystickIsActive == true {
-      player.position = CGPointMake(player.position.x - (velocityX * 3), player.position.y + (velocityY * 3))
+      player.position = CGPointMake(player.position.x - (playerVelocityX * 3),
+                                    player.position.y + (playerVelocityY * 3))
     }
+
+    player.normalEngineFireIsHidden(joystickIsActive)
+    player.turboEngineFireIsHidden(!joystickIsActive)
+  }
+
+  // MARK: - Public
+
+  func endGame(isWin: Bool) {
+    let reveal = SKTransition.crossFade(withDuration: 0.5)
+    let gameOverScene = GameOverScene(size: self.size, win: isWin)
+
+    view?.presentScene(gameOverScene, transition: reveal)
+  }
+
+  // MARK: - Private
+
+  private func setupPhysics() {
+    physicsWorld.gravity = .zero
+    physicsWorld.contactDelegate = self
+
+    physicsBody = SKPhysicsBody(edgeLoopFrom: CGRectMake(CGRectGetMinX(frame),
+                                                         CGRectGetMinY(frame),
+                                                         frame.size.width,
+                                                         frame.size.height))
+  }
+
+  private func addAsteroids() {
+    run(SKAction.repeatForever(
+      SKAction.sequence([
+        SKAction.run(createAsteroid),
+        SKAction.wait(forDuration: 5.0)
+      ])
+    ), withKey: Keys.addAsteroidActionKey)
+  }
+
+  private func addEnemies() {
+    run(SKAction.repeatForever(
+      SKAction.sequence([
+        SKAction.run(createEnemy),
+        SKAction.wait(forDuration: 2.5)
+      ])
+    ), withKey: Keys.addEnemyActionKey)
   }
 }
