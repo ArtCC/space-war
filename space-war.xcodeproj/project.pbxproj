@@ -11,6 +11,12 @@
 		80210A7329E57195005FCB32 /* EnemyTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80210A7229E57195005FCB32 /* EnemyTurbo.atlas */; };
 		802C22CA29E44B1E0038841E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802C22C929E44B1E0038841E /* String.swift */; };
 		802DF9EB29E4D1EE003EC66D /* PlayerTurbo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */; };
+		803881C829ED519300BA530A /* space-game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 803881C229ED519200BA530A /* space-game.mp3 */; };
+		803881C929ED519300BA530A /* enemy-explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 803881C329ED519200BA530A /* enemy-explosion.mp3 */; };
+		803881CA29ED519300BA530A /* short-laser-gun-shot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 803881C429ED519200BA530A /* short-laser-gun-shot.mp3 */; };
+		803881CB29ED519300BA530A /* start-level.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 803881C529ED519200BA530A /* start-level.mp3 */; };
+		803881CC29ED519300BA530A /* menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 803881C629ED519300BA530A /* menu.mp3 */; };
+		803881CD29ED519300BA530A /* player-explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 803881C729ED519300BA530A /* player-explosion.mp3 */; };
 		804CB7B229E945F100051684 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804CB7B129E945F100051684 /* Background.swift */; };
 		804CB7B629E9517E00051684 /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804CB7B529E9517E00051684 /* Asteroid.swift */; };
 		804CB7B829E9581500051684 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804CB7B729E9581500051684 /* Player.swift */; };
@@ -26,10 +32,6 @@
 		809E8EAF29E42027001AB601 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EAE29E42027001AB601 /* Assets.xcassets */; };
 		809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EB029E42027001AB601 /* LaunchScreen.storyboard */; };
 		809E8EB929E4211A001AB601 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8EB829E4211A001AB601 /* MainMenuScene.swift */; };
-		809E8EBE29E422CA001AB601 /* short-laser-gun-shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EBC29E422C9001AB601 /* short-laser-gun-shot.wav */; };
-		809E8EBF29E422CA001AB601 /* space-game.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EBD29E422CA001AB601 /* space-game.wav */; };
-		809E8EC229E422E9001AB601 /* start-level.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC029E422E8001AB601 /* start-level.wav */; };
-		809E8EC329E422E9001AB601 /* menu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC129E422E9001AB601 /* menu.wav */; };
 		809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC629E42614001AB601 /* Roboto-Regular.ttf */; };
 		809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 809E8EC729E42614001AB601 /* Roboto-Thin.ttf */; };
 		809E8ECD29E42DAB001AB601 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809E8ECC29E42DAB001AB601 /* GameScene.swift */; };
@@ -45,8 +47,6 @@
 		80F0DB7729E595BE00F8782B /* EnemyExplosion.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80F0DB7629E595BE00F8782B /* EnemyExplosion.atlas */; };
 		80F0DB7929E595C300F8782B /* Explosion.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80F0DB7829E595C300F8782B /* Explosion.atlas */; };
 		80F0DB7B29E595C700F8782B /* PlayerExplosion.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 80F0DB7A29E595C700F8782B /* PlayerExplosion.atlas */; };
-		80F0DB7E29E59BA600F8782B /* player-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 80F0DB7C29E59BA600F8782B /* player-explosion.wav */; };
-		80F0DB7F29E59BA600F8782B /* enemy-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 80F0DB7D29E59BA600F8782B /* enemy-explosion.wav */; };
 		80F0DB8229E59DCF00F8782B /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F0DB8129E59DCF00F8782B /* ScoreManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +55,12 @@
 		80210A7229E57195005FCB32 /* EnemyTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = EnemyTurbo.atlas; sourceTree = "<group>"; };
 		802C22C929E44B1E0038841E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		802DF9EA29E4D1EE003EC66D /* PlayerTurbo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerTurbo.atlas; sourceTree = "<group>"; };
+		803881C229ED519200BA530A /* space-game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "space-game.mp3"; sourceTree = "<group>"; };
+		803881C329ED519200BA530A /* enemy-explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "enemy-explosion.mp3"; sourceTree = "<group>"; };
+		803881C429ED519200BA530A /* short-laser-gun-shot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "short-laser-gun-shot.mp3"; sourceTree = "<group>"; };
+		803881C529ED519200BA530A /* start-level.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "start-level.mp3"; sourceTree = "<group>"; };
+		803881C629ED519300BA530A /* menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menu.mp3; sourceTree = "<group>"; };
+		803881C729ED519300BA530A /* player-explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "player-explosion.mp3"; sourceTree = "<group>"; };
 		804CB7B129E945F100051684 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		804CB7B529E9517E00051684 /* Asteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
 		804CB7B729E9581500051684 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -71,10 +77,6 @@
 		809E8EAE29E42027001AB601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		809E8EB129E42027001AB601 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		809E8EB829E4211A001AB601 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
-		809E8EBC29E422C9001AB601 /* short-laser-gun-shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "short-laser-gun-shot.wav"; sourceTree = "<group>"; };
-		809E8EBD29E422CA001AB601 /* space-game.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "space-game.wav"; sourceTree = "<group>"; };
-		809E8EC029E422E8001AB601 /* start-level.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "start-level.wav"; sourceTree = "<group>"; };
-		809E8EC129E422E9001AB601 /* menu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu.wav; sourceTree = "<group>"; };
 		809E8EC429E425C6001AB601 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		809E8EC629E42614001AB601 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		809E8EC729E42614001AB601 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
@@ -96,8 +98,6 @@
 		80F0DB7629E595BE00F8782B /* EnemyExplosion.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = EnemyExplosion.atlas; sourceTree = "<group>"; };
 		80F0DB7829E595C300F8782B /* Explosion.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Explosion.atlas; sourceTree = "<group>"; };
 		80F0DB7A29E595C700F8782B /* PlayerExplosion.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerExplosion.atlas; sourceTree = "<group>"; };
-		80F0DB7C29E59BA600F8782B /* player-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "player-explosion.wav"; sourceTree = "<group>"; };
-		80F0DB7D29E59BA600F8782B /* enemy-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "enemy-explosion.wav"; sourceTree = "<group>"; };
 		80F0DB8129E59DCF00F8782B /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,12 +197,12 @@
 		809E8EBB29E422AC001AB601 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				80F0DB7D29E59BA600F8782B /* enemy-explosion.wav */,
-				809E8EC129E422E9001AB601 /* menu.wav */,
-				80F0DB7C29E59BA600F8782B /* player-explosion.wav */,
-				809E8EBC29E422C9001AB601 /* short-laser-gun-shot.wav */,
-				809E8EBD29E422CA001AB601 /* space-game.wav */,
-				809E8EC029E422E8001AB601 /* start-level.wav */,
+				803881C329ED519200BA530A /* enemy-explosion.mp3 */,
+				803881C629ED519300BA530A /* menu.mp3 */,
+				803881C729ED519300BA530A /* player-explosion.mp3 */,
+				803881C429ED519200BA530A /* short-laser-gun-shot.mp3 */,
+				803881C229ED519200BA530A /* space-game.mp3 */,
+				803881C529ED519200BA530A /* start-level.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -317,26 +317,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				809E8EC229E422E9001AB601 /* start-level.wav in Resources */,
+				803881CB29ED519300BA530A /* start-level.mp3 in Resources */,
+				803881CD29ED519300BA530A /* player-explosion.mp3 in Resources */,
 				809E8EAD29E42026001AB601 /* Main.storyboard in Resources */,
 				809E8EC829E42614001AB601 /* Roboto-Regular.ttf in Resources */,
 				80210A7329E57195005FCB32 /* EnemyTurbo.atlas in Resources */,
 				80F0DB7929E595C300F8782B /* Explosion.atlas in Resources */,
+				803881CA29ED519300BA530A /* short-laser-gun-shot.mp3 in Resources */,
 				80F0DB7729E595BE00F8782B /* EnemyExplosion.atlas in Resources */,
 				80F0DB7B29E595C700F8782B /* PlayerExplosion.atlas in Resources */,
 				809E8EAF29E42027001AB601 /* Assets.xcassets in Resources */,
-				809E8EBE29E422CA001AB601 /* short-laser-gun-shot.wav in Resources */,
-				80F0DB7E29E59BA600F8782B /* player-explosion.wav in Resources */,
-				80F0DB7F29E59BA600F8782B /* enemy-explosion.wav in Resources */,
 				802DF9EB29E4D1EE003EC66D /* PlayerTurbo.atlas in Resources */,
 				809E8EB229E42027001AB601 /* LaunchScreen.storyboard in Resources */,
 				80A2488A29E7515700F39F0D /* BossTurbo.atlas in Resources */,
 				80A36AD129E99AE7006FF763 /* BossExplosion.atlas in Resources */,
 				80B20E7A29E74F770097F28E /* Localizable.strings in Resources */,
-				809E8EBF29E422CA001AB601 /* space-game.wav in Resources */,
-				809E8EC329E422E9001AB601 /* menu.wav in Resources */,
 				809E8EC929E42614001AB601 /* Roboto-Thin.ttf in Resources */,
+				803881C929ED519300BA530A /* enemy-explosion.mp3 in Resources */,
 				80210A7129E56EC6005FCB32 /* PlayerNormal.atlas in Resources */,
+				803881CC29ED519300BA530A /* menu.mp3 in Resources */,
+				803881C829ED519300BA530A /* space-game.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

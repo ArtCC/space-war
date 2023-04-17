@@ -34,12 +34,12 @@ struct Keys {
 }
 
 struct Music {
-  static let enemyExplosion = "enemy-explosion.wav"
-  static let game = "space-game.wav"
-  static let menu = "menu.wav"
-  static let playerExplosion = "player-explosion.wav"
-  static let shot = "short-laser-gun-shot.wav"
-  static let startGame = "start-level.wav"
+  static let enemyExplosion = "enemy-explosion.mp3"
+  static let game = "space-game.mp3"
+  static let menu = "menu.mp3"
+  static let playerExplosion = "player-explosion.mp3"
+  static let shot = "short-laser-gun-shot.mp3"
+  static let startGame = "start-level.mp3"
 }
 
 struct Textures {
