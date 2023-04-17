@@ -12,7 +12,7 @@ In summary, this 2D iOS game with SpriteKit is an exciting space adventure where
 
 I developed this project as part of my Udemy course: **"Aprende a crear juegos 2D para iOS con SpriteKit y Swift 5.8"** in spanish language.
 
-[Access my course on Udemy](https://www.udemy.com/user/arturo76/){:target="_blank"}
+[Access my course on Udemy](https://www.udemy.com/user/arturo76/)
 
 <p><img src="https://github.com/ArtCC/space-war/blob/main/screenshots/1.PNG"></p>
 
