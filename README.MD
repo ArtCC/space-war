@@ -14,13 +14,7 @@ I developed this project as part of my Udemy course: **"Aprende a crear juegos 2
 
 [Access my course on Udemy](https://www.udemy.com/user/arturo76/)
 
-<p><img src="https://github.com/ArtCC/space-war/blob/main/screenshots/1.PNG"></p>
-
-<p><img src="https://github.com/ArtCC/space-war/blob/main/screenshots/2.PNG"></p>
-
-<p><img src="https://github.com/ArtCC/space-war/blob/main/screenshots/3.PNG"></p>
-
-<p><img src="https://github.com/ArtCC/space-war/blob/main/screenshots/4.PNG"></p>
+<p><img src="https://github.com/ArtCC/space-war/blob/main/screenshots/Demo.gif"></p>
 
 ## LICENSE
 
