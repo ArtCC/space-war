@@ -10,10 +10,6 @@ The game features stunning graphics and visual effects that immerse players in a
 
 In summary, this 2D iOS game with SpriteKit is an exciting space adventure where players must face asteroids, enemy ships, and a powerful final boss. With intuitive controls, stunning graphics, and thrilling challenges, players will embark on a space mission full of action and fun! Do you have what it takes to save the universe and win the game? Show off your skills in this exciting space game!
 
-I developed this project as part of my Udemy course: **"Aprende a crear juegos 2D para iOS con SpriteKit y Swift 5.8"** in spanish language.
-
-[Access my course on Udemy](https://www.udemy.com/user/arturo76/)
-
 <p><img src="https://github.com/ArtCC/space-war/blob/main/screenshots/Demo.gif"></p>
 
 ## LICENSE
