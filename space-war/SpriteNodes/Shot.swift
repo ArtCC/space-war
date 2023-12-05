@@ -9,54 +9,53 @@
 import SpriteKit
 
 enum MovementType {
-  case rightToLeft
-  case leftToRight
+    case rightToLeft
+    case leftToRight
 }
 
 class Shot: SKSpriteNode {
+    // MARK: - Properties
 
-  // MARK: - Properties
+    private var type: MovementType = .leftToRight
 
-  private var type: MovementType = .leftToRight
+    // MARK: - Init
 
-  // MARK: - Init
+    init(texture: SKTexture, position: CGPoint, type: MovementType) {
+        super.init(texture: texture, color: .clear, size: texture.size())
 
-  init(texture: SKTexture, position: CGPoint, type: MovementType) {
-    super.init(texture: texture, color: .clear, size: texture.size())
+        setup(texture, position, type)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 
-    setup(texture, position, type)
-  }
+    // MARK: - Public
 
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
+    func movement() {
+        let direction = CGVector(dx: type == .leftToRight ? 1.0 : -1.0, dy: 0.0)
+        let distance: CGFloat = 750.0
+        let action = SKAction.move(by: CGVector(dx: direction.dx * distance, dy: direction.dy * distance), duration: 1.0)
+        let remove = SKAction.removeFromParent()
 
-  // MARK: - Public
+        run(SKAction.sequence([action, remove]))
+    }
 
-  func movement() {
-    let direction = CGVector(dx: type == .leftToRight ? 1.0 : -1.0, dy: 0.0)
-    let distance: CGFloat = 750.0
-    let action = SKAction.move(by: CGVector(dx: direction.dx * distance, dy: direction.dy * distance), duration: 1.0)
-    let remove = SKAction.removeFromParent()
+    // MARK: - Private
 
-    run(SKAction.sequence([action, remove]))
-  }
+    private func setup(_ texture: SKTexture, _ position: CGPoint, _ type: MovementType) {
+        self.position = position
+        self.texture = texture
+        self.type = type
 
-  // MARK: - Private
+        zPosition = 1.0
 
-  private func setup(_ texture: SKTexture, _ position: CGPoint, _ type: MovementType) {
-    self.position = position
-    self.texture = texture
-    self.type = type
+        setScale(2.0)
 
-    zPosition = 1.0
+        physicsBody = SKPhysicsBody(circleOfRadius: size.width / 2)
+        physicsBody?.isDynamic = true
+        physicsBody?.usesPreciseCollisionDetection = true
 
-    setScale(2.0)
-
-    physicsBody = SKPhysicsBody(circleOfRadius: size.width / 2)
-    physicsBody?.isDynamic = true
-    physicsBody?.usesPreciseCollisionDetection = true
-
-    run(SKAction.playSoundFileNamed(Music.shot, waitForCompletion: false))
-  }
+        run(SKAction.playSoundFileNamed(Music.shot, waitForCompletion: false))
+    }
 }

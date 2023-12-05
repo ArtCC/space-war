@@ -9,13 +9,13 @@
 import Foundation
 
 enum Nodes: String {
-  case asteroid
-  case boss
-  case enemy
-  case enemyProjectile
-  case firePad
-  case joystick
-  case joystickBase
-  case player
-  case playerProjectile
+    case asteroid
+    case boss
+    case enemy
+    case enemyProjectile
+    case firePad
+    case joystick
+    case joystickBase
+    case player
+    case playerProjectile
 }

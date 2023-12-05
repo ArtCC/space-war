@@ -9,18 +9,17 @@
 import Foundation
 
 struct ScoreManager {
+    // MARK: - Properties
 
-  // MARK: - Properties
+    private static let defaults = UserDefaults.standard
 
-  private static let defaults = UserDefaults.standard
+    // MARK: - Public
 
-  // MARK: - Public
+    static func getScore() -> Int {
+        defaults.integer(forKey: Keys.scoreKey)
+    }
 
-  static func getScore() -> Int {
-    defaults.integer(forKey: Keys.scoreKey)
-  }
-
-  static func saveScore(_ score: Int) {
-    score > getScore() ? defaults.setValue(score, forKey: Keys.scoreKey) : nil
-  }
+    static func saveScore(_ score: Int) {
+        score > getScore() ? defaults.setValue(score, forKey: Keys.scoreKey) : nil
+    }
 }

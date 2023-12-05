@@ -11,7 +11,6 @@ import SpriteKit
 // MARK: - UITouch
 
 extension GameScene {
-
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchLocation = touch.location(in: self)
@@ -47,7 +46,7 @@ extension GameScene {
                     let yDist: CGFloat = distance * sin(angle)
 
                     joystick.position = CGPoint(x: joystickBase.position.x + xDist, y: joystickBase.position.y + yDist)
-                    
+
                     let xDistPlayer: CGFloat = sin(angle - 1.57079633) * radio
                     let yDistPlayer: CGFloat = cos(angle - 1.57079633) * radio
 

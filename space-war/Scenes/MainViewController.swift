@@ -8,31 +8,30 @@
 import SpriteKit
 
 class MainViewController: UIViewController {
+    // MARK: - Lifecycle's functions
 
-  // MARK: - Lifecycle's functions
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    createMainScene()
-  }
-
-  // MARK: - Setup functions
-
-  override var prefersStatusBarHidden: Bool {
-    return true
-  }
-
-  // MARK: - Private
-
-  private func createMainScene() {
-    let scene = MainMenuScene(size: view.bounds.size)
-
-    guard let skView = view as? SKView else {
-      return
+        createMainScene()
     }
-    skView.ignoresSiblingOrder = true
-    skView.isMultipleTouchEnabled = true
-    skView.presentScene(scene)
-  }
+
+    // MARK: - Setup functions
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    // MARK: - Private
+
+    private func createMainScene() {
+        let scene = MainMenuScene(size: view.bounds.size)
+
+        guard let skView = view as? SKView else {
+            return
+        }
+        skView.ignoresSiblingOrder = true
+        skView.isMultipleTouchEnabled = true
+        skView.presentScene(scene)
+    }
 }
